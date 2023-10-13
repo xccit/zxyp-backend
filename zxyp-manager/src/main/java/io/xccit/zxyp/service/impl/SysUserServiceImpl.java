@@ -4,6 +4,8 @@ import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
 import io.xccit.zxyp.dto.system.LoginDto;
 import io.xccit.zxyp.entity.system.SysUser;
+import io.xccit.zxyp.exception.PasswordWrongException;
+import io.xccit.zxyp.exception.UserNotExistsException;
 import io.xccit.zxyp.mapper.SysUserMapper;
 import io.xccit.zxyp.service.ISysUserService;
 import io.xccit.zxyp.vo.system.LoginVo;
@@ -43,11 +45,11 @@ public class SysUserServiceImpl implements ISysUserService {
         log.info(inputUsername+"请求登录,密码:"+inputPassword);
         SysUser sysUser = sysUserMapper.selectUserInfoByUserName(inputUsername);
         if (sysUser == null){
-            throw new RuntimeException("用户名不存在");
+            throw new UserNotExistsException(203,"用户名不存在");
         }
         String lockedPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes());
         if (!lockedPassword.equals(sysUser.getPassword())){
-            throw new RuntimeException("密码错误");
+            throw new PasswordWrongException(204,"用户名或密码错误");
         }
         String token = UUID.randomUUID().toString().replaceAll("-", "");
         redisTemplate.opsForValue()
