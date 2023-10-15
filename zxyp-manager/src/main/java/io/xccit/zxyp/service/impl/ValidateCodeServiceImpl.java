@@ -2,6 +2,7 @@ package io.xccit.zxyp.service.impl;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
+import constants.RedisPrefixConstant;
 import io.xccit.zxyp.service.ValidateCodeService;
 import io.xccit.zxyp.vo.system.ValidateCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,13 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         String codeKey = UUID.randomUUID().toString().replaceAll("-", "");
         //TODO 存储进Redis,1分钟有效
         redisTemplate.opsForValue().set(
-                "user:validate"+codeKey,
+                RedisPrefixConstant.VALIDATE_CODE_KEY + codeKey,
                 codeValue,
                 1,
                 TimeUnit.MINUTES
         );
         //封装VO
-        ValidateCodeVo validateCodeVo = new ValidateCodeVo(codeKey,"data:image/png;BASE64,"+imageBase64);
+        ValidateCodeVo validateCodeVo = new ValidateCodeVo(codeKey, "data:image/png;BASE64," + imageBase64);
         return validateCodeVo;
     }
 }

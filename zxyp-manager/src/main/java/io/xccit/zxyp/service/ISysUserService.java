@@ -23,4 +23,10 @@ public interface ISysUserService {
      * @return
      */
     SysUser userInfo(String token);
+
+    /**
+     * 用户登出
+     * @param token
+     */
+    void logout(String token);
 }

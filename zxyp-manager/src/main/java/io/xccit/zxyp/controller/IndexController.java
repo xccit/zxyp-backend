@@ -65,8 +65,14 @@ public class IndexController {
      */
     @GetMapping("/userinfo")
     public AjaxResult userInfo(@RequestHeader(value = "token") String token){
-        log.info("请求头中携带的token:"+token);
+//        log.info("请求头中携带的token:"+token);
         SysUser sysUser = sysUserService.userInfo(token);
         return AjaxResult.build(sysUser,ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/logout")
+    public AjaxResult logout(@RequestHeader(name = "token") String token){
+        sysUserService.logout(token);
+        return AjaxResult.build("用户登出",ResultCodeEnum.SUCCESS);
     }
 }
