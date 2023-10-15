@@ -2,6 +2,7 @@ package io.xccit.zxyp.exception.handler;
 
 import io.xccit.zxyp.exception.PasswordWrongException;
 import io.xccit.zxyp.exception.UserNotExistsException;
+import io.xccit.zxyp.exception.ValidateCodeErrorException;
 import io.xccit.zxyp.vo.common.AjaxResult;
 import io.xccit.zxyp.vo.common.ResultCodeEnum;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,8 +24,8 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public AjaxResult error(Exception e) {
-        return AjaxResult.build(null, 500, e.getCause().getMessage());
+    public AjaxResult error(RuntimeException e) {
+        return AjaxResult.build(null, 500, e.getMessage().toString());
     }
 
     /**
@@ -48,6 +49,18 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(UserNotExistsException.class)
     public AjaxResult userNotExists(UserNotExistsException ex) {
+        return AjaxResult.build(null, ex.getCode(), ex.getMessage());
+    }
+
+    /**
+     * 验证码不正确捕获
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(ValidateCodeErrorException.class)
+    public AjaxResult validateError(ValidateCodeErrorException ex) {
         return AjaxResult.build(null, ex.getCode(), ex.getMessage());
     }
 }

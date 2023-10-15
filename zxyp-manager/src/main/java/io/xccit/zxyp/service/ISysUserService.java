@@ -1,6 +1,7 @@
 package io.xccit.zxyp.service;
 
 import io.xccit.zxyp.dto.system.LoginDto;
+import io.xccit.zxyp.entity.system.SysUser;
 import io.xccit.zxyp.vo.system.LoginVo;
 
 /**
@@ -15,4 +16,11 @@ public interface ISysUserService {
      * @return 登录结果
      */
     LoginVo login(LoginDto loginDto);
+
+    /**
+     * 通过token获取用户信息
+     * @param token
+     * @return
+     */
+    SysUser userInfo(String token);
 }

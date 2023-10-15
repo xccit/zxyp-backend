@@ -3,6 +3,7 @@ package io.xccit.zxyp;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author CH_ywx
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description 管理端启动类
  */
 @MapperScan(basePackages = {"io.xccit.zxyp.**.mapper"})
+@ComponentScan(basePackages = {"io.xccit.zxyp.**"})
 @SpringBootApplication
 public class ServiceManagerApplication {
     public static void main(String[] args) {
