@@ -7,6 +7,7 @@ import io.xccit.zxyp.dto.system.LoginDto;
 import io.xccit.zxyp.entity.system.SysUser;
 import io.xccit.zxyp.service.ISysUserService;
 import io.xccit.zxyp.service.ValidateCodeService;
+import io.xccit.zxyp.utils.AuthContextUtil;
 import io.xccit.zxyp.vo.common.AjaxResult;
 import io.xccit.zxyp.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.vo.system.LoginVo;
@@ -65,7 +66,7 @@ public class IndexController {
      */
     @GetMapping("/userinfo")
     public AjaxResult userInfo(@RequestHeader(value = "token") String token){
-//        log.info("请求头中携带的token:"+token);
+        log.info("service token:"+token);
         SysUser sysUser = sysUserService.userInfo(token);
         return AjaxResult.build(sysUser,ResultCodeEnum.SUCCESS);
     }

@@ -13,3 +13,11 @@ spring:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/**/*.xml
+
+# web配置
+zxyp:
+  web:
+    auth:
+      noAuthUrls:
+        - /admin/system/index/login
+        - /admin/system/index/generateValidateCode

@@ -2,7 +2,7 @@ package io.xccit.zxyp.service.impl;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
-import constants.RedisPrefixConstant;
+import io.xccit.zxyp.constants.RedisPrefixConstant;
 import io.xccit.zxyp.service.ValidateCodeService;
 import io.xccit.zxyp.vo.system.ValidateCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package io.xccit.zxyp.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import constants.RedisPrefixConstant;
+import io.xccit.zxyp.constants.RedisPrefixConstant;
 import io.xccit.zxyp.dto.system.LoginDto;
 import io.xccit.zxyp.entity.system.SysUser;
 import io.xccit.zxyp.exception.PasswordWrongException;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -71,8 +70,8 @@ public class SysUserServiceImpl implements ISysUserService {
         redisTemplate.opsForValue()
                 .set(RedisPrefixConstant.LOGIN_USER_PREFIX + token,
                         JSON.toJSONString(sysUser),
-                        7,
-                        TimeUnit.DAYS); //TODO Token存Redis,7天有效
+                        60,
+                        TimeUnit.MINUTES); //TODO Token存Redis,60分钟有效
         LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
         return loginVo;
