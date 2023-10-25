@@ -4,7 +4,7 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import io.xccit.zxyp.constants.RedisPrefixConstant;
 import io.xccit.zxyp.service.ValidateCodeService;
-import io.xccit.zxyp.vo.system.ValidateCodeVo;
+import io.xccit.zxyp.model.vo.system.ValidateCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

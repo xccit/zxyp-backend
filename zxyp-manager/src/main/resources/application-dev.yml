@@ -21,3 +21,6 @@ zxyp:
       noAuthUrls:
         - /admin/system/index/login
         - /admin/system/index/generateValidateCode
+        - /admin/system/swagger
+        - /doc.html
+        - /swagger-ui.html

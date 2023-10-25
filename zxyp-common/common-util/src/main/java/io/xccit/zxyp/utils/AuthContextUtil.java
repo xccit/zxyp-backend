@@ -1,6 +1,6 @@
 package io.xccit.zxyp.utils;
 
-import io.xccit.zxyp.entity.system.SysUser;
+import io.xccit.zxyp.model.entity.system.SysUser;
 
 /**
  * @author CH_ywx
@@ -17,7 +17,7 @@ public class AuthContextUtil {
      * 设置登录的用户
      * @param sysUser
      */
-    public static void set(SysUser sysUser){
+    public static void setObj(SysUser sysUser){
         threadLocal.set(sysUser);
     }
 
@@ -25,7 +25,7 @@ public class AuthContextUtil {
      * 获取登录的用户
      * @return
      */
-    public static SysUser get(){
+    public static SysUser getObj(){
         return threadLocal.get();
     }
 

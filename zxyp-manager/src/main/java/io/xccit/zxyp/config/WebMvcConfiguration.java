@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -23,6 +24,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 跨域
+     *
      * @param registry
      */
     @Override
@@ -36,12 +38,25 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 拦截器注册
+     *
      * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginAuthInterceptor)
                 .excludePathPatterns(webAuthConfigProperties.getNoAuthUrls())
+                .excludePathPatterns("/doc.html", "swagger-ui.html", "/v3/api-docs/**", "/doc.html", "/webjars/**", "/swagger-resources", "/swagger-ui/**")
                 .addPathPatterns("/**");
+    }
+
+    /**
+     * 静态资源映射
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

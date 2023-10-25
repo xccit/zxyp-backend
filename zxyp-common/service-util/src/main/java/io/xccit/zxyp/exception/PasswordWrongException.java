@@ -1,6 +1,6 @@
 package io.xccit.zxyp.exception;
 
-import io.xccit.zxyp.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import lombok.Data;
 
 /**

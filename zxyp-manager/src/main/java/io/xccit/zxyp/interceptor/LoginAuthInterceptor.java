@@ -3,10 +3,10 @@ package io.xccit.zxyp.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import io.xccit.zxyp.constants.RedisPrefixConstant;
-import io.xccit.zxyp.entity.system.SysUser;
+import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.utils.AuthContextUtil;
-import io.xccit.zxyp.vo.common.AjaxResult;
-import io.xccit.zxyp.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.common.AjaxResult;
+import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -92,7 +92,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         //存入ThreadLocal
         SysUser loginUser = JSON.parseObject(loginUserForRedis, SysUser.class);
         assert loginUser != null;
-        AuthContextUtil.set(loginUser);
+        AuthContextUtil.setObj(loginUser);
         //Redis更新TOKEN过期时间
         redisTemplate.expire(RedisPrefixConstant.LOGIN_USER_PREFIX + token,60, TimeUnit.MINUTES);
         //放行

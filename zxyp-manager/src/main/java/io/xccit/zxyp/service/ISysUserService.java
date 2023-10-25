@@ -1,8 +1,8 @@
 package io.xccit.zxyp.service;
 
-import io.xccit.zxyp.dto.system.LoginDto;
-import io.xccit.zxyp.entity.system.SysUser;
-import io.xccit.zxyp.vo.system.LoginVo;
+import io.xccit.zxyp.model.dto.system.LoginDto;
+import io.xccit.zxyp.model.entity.system.SysUser;
+import io.xccit.zxyp.model.vo.system.LoginVo;
 
 /**
  * @author CH_ywx

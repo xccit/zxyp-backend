@@ -1,6 +1,6 @@
 package io.xccit.zxyp.mapper;
 
-import io.xccit.zxyp.entity.system.SysUser;
+import io.xccit.zxyp.model.entity.system.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

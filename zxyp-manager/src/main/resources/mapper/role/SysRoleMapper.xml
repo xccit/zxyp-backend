@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.SysRoleMapper">
+    <resultMap id="roleVO" type="io.xccit.zxyp.model.entity.system.SysRole">
+        <id property="id" column="id"></id>
+        <result column="role_name" property="roleName"></result>
+        <result column="role_code" property="roleCode"></result>
+        <result column="description" property="description"></result>
+    </resultMap>
+    <sql id="selectVO">
+        select `id`,`role_name`,`role_code`,`description`,`create_time`,`update_time`,`is_deleted` from sys_role
+    </sql>
+    <!--分页条件查询角色信息-->
+    <select id="listRolePage" resultMap="roleVO">
+        <include refid="selectVO"></include>
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and role_name like concat('%',#{roleName},'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

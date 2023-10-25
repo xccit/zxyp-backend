@@ -1,6 +1,6 @@
 package io.xccit.zxyp.service;
 
-import io.xccit.zxyp.vo.system.ValidateCodeVo;
+import io.xccit.zxyp.model.vo.system.ValidateCodeVo;
 
 /**
  * @author CH_ywx
