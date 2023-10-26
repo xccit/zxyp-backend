@@ -1,5 +1,6 @@
 package io.xccit.zxyp.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
@@ -35,8 +36,40 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public PageInfo<SysRole> listRolePage(SysRoleDto sysRoleDto, Integer current, Integer pageSize) {
         PageHelper.startPage(current,pageSize);
+        log.info(sysRoleDto.getRoleName());
         List<SysRole> roleList = sysRoleMapper.listRolePage(sysRoleDto);
         PageInfo<SysRole> sysRolePageInfo = new PageInfo<>(roleList);
         return sysRolePageInfo;
+    }
+
+    /**
+     * 添加角色
+     *
+     * @param sysRole
+     */
+    @Override
+    public void saveRole(SysRole sysRole) {
+        sysRoleMapper.saveRole(sysRole);
+    }
+
+    /**
+     * 根据ID删除角色/批量删除
+     *
+     * @param roleIds
+     */
+    @Override
+    public void removeByIds(List<Long> roleIds) {
+        sysRoleMapper.removeByIds(roleIds);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @param sysRole
+     */
+    @Override
+    public void updateRole(SysRole sysRole) {
+        log.info(JSON.toJSONString(sysRole));
+        sysRoleMapper.updateRole(sysRole);
     }
 }

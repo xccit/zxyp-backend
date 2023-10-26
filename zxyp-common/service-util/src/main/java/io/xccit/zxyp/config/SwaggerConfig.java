@@ -36,7 +36,7 @@ public class SwaggerConfig {
         return new OpenAPI().info(
                 new Info()
                         .title("甄选优品API")
-                        .version("1.0")
+                        .version("v1.0")
                         .description("甄选优品API文档")
                         .contact(new Contact().name("xccit").email("darkhorse_1209@outlook.com"))
         );

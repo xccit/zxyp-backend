@@ -50,7 +50,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * 静态资源映射
+     * 静态资源映射,配置doc.html是为了解决Swagger提示未开启js的问题
      *
      * @param registry
      */

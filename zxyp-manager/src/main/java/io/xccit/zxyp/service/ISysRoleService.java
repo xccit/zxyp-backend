@@ -22,4 +22,22 @@ public interface ISysRoleService {
      * @return
      */
     PageInfo<SysRole> listRolePage(SysRoleDto sysRoleDto, Integer current, Integer pageSize);
+
+    /**
+     * 添加角色
+     * @param sysRole
+     */
+    void saveRole(SysRole sysRole);
+
+    /**
+     * 根据ID删除角色/批量删除
+     * @param roleIds
+     */
+    void removeByIds(List<Long> roleIds);
+
+    /**
+     * 修改角色
+     * @param sysRole
+     */
+    void updateRole(SysRole sysRole);
 }

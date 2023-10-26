@@ -12,6 +12,65 @@
     <sql id="selectVO">
         select `id`,`role_name`,`role_code`,`description`,`create_time`,`update_time`,`is_deleted` from sys_role
     </sql>
+    <!--添加角色-->
+    <insert id="saveRole">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleName != null and roleName != ''">
+                role_name,
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                role_code,
+            </if>
+            <if test="description != null and description != ''">
+                description,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleName != null and roleName != ''">
+                #{roleName},
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                #{roleCode},
+            </if>
+            <if test="description != null and description != ''">
+                #{description},
+            </if>
+        </trim>
+    </insert>
+    <!--根据ID删除/批量删除-->
+    <update id="removeByIds">
+        update sys_role
+        <set>
+            is_deleted = 1
+        </set>
+        <where>
+            id in
+            <if test="roleIds != null">
+                <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+                    #{roleId}
+                </foreach>
+            </if>
+        </where>
+    </update>
+    <!--修改角色-->
+    <update id="updateRole">
+        update sys_role set
+        <if test="roleName != null and roleName != ''">
+            role_name = #{roleName},
+        </if>
+        <if test="roleCode != null and roleCode != ''">
+            role_code = #{roleCode},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        update_time = NOW()
+        <where>
+            id = #{id}
+        </where>
+    </update>
     <!--分页条件查询角色信息-->
     <select id="listRolePage" resultMap="roleVO">
         <include refid="selectVO"></include>
@@ -19,6 +78,7 @@
             <if test="roleName != null and roleName != ''">
                 and role_name like concat('%',#{roleName},'%')
             </if>
+            and is_deleted = 0
         </where>
         order by id desc
     </select>

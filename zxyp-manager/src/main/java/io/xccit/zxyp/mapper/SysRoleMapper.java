@@ -15,4 +15,10 @@ import java.util.List;
 public interface SysRoleMapper {
 
     List<SysRole> listRolePage (SysRoleDto sysRoleDto);
+
+    void saveRole(SysRole sysRole);
+
+    void removeByIds(List<Long> roleIds);
+
+    void updateRole(SysRole sysRole);
 }
