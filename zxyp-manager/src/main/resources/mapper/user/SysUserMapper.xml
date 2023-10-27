@@ -19,17 +19,120 @@
         <result column="is_deleted" property="isDeleted"></result>
     </resultMap>
     
-    <sql id="userVo">
+    <sql id="selectVO">
         select `id`,`username`,`password`,`name`,`phone`,`avatar`,`description`,`status`,`create_time`,`update_time`,`is_deleted`
                 from `sys_user`
     </sql>
-
-    <select id="selectUserInfoByUserName" resultType="io.xccit.zxyp.model.entity.system.SysUser">
-        <include refid="userVo"></include>
+    <!--添加用户-->
+    <insert id="save">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                userName,
+            </if>
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar,
+            </if>
+            <if test="description != null and description != ''">
+                description,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                #{avatar},
+            </if>
+            <if test="description != null and description != ''">
+                #{description},
+            </if>
+        </trim>
+    </insert>
+    <!--用户删除-->
+    <update id="remove">
+        update sys_user set is_deleted = 1
         <where>
-            <if test="inputUsername != null">
-                username = #{inputUsername}
+            <if test="userIds != null">
+                and id in
+                <foreach collection="userIds" separator="," open="(" close=")" item="userId">
+                    #{userId}
+                </foreach>
             </if>
         </where>
+    </update>
+    <!--用户更新-->
+    <update id="update">
+        update sys_user
+        <set>
+            <if test="userName != null and userName != ''">
+                username = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_time = CURRENT_TIMESTAMP
+            <where>
+                id = #{id}
+            </where>
+        </set>
+    </update>
+    <!--登录用户是否存在校验-->
+    <select id="selectUserInfoByUserName" resultType="io.xccit.zxyp.model.entity.system.SysUser">
+        <include refid="selectVO"></include>
+        <where>
+            <if test="inputUsername != null">
+                and username = #{inputUsername}
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+    <!--分页条件列表查询-->
+    <select id="listUserPage" resultMap="sysUserVO">
+        <include refid="selectVO"></include>
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and username like concat('%',#{keyword},'%') or name like concat('%',#{keyword},'%') or phone like concat('%',#{keyword},'%')
+            </if>
+            <if test="createTimeBegin != null and createTimeBegin != '' and createTimeEnd != null and createTimeEnd != ''">
+                and create_time between #{createTimeBegin} and #{createTimeEnd}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by id desc
     </select>
 </mapper>

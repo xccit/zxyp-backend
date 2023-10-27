@@ -1,6 +1,7 @@
 package io.xccit.zxyp.exception.handler;
 
 import io.xccit.zxyp.exception.PasswordWrongException;
+import io.xccit.zxyp.exception.UserNameExistsException;
 import io.xccit.zxyp.exception.UserNotExistsException;
 import io.xccit.zxyp.exception.ValidateCodeErrorException;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public AjaxResult error(RuntimeException e) {
-        return AjaxResult.build(null, 500, e.getMessage().toString());
+        return AjaxResult.build(null, 500, e.getCause().getMessage());
     }
 
     /**
@@ -60,6 +61,18 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(ValidateCodeErrorException.class)
     public AjaxResult validateError(ValidateCodeErrorException ex) {
+        return AjaxResult.build(null, ex.getCode(), ex.getMessage());
+    }
+
+    /**
+     * 用户名已存在捕获
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(UserNameExistsException.class)
+    public AjaxResult userNameExistsError(UserNameExistsException ex) {
         return AjaxResult.build(null, ex.getCode(), ex.getMessage());
     }
 }

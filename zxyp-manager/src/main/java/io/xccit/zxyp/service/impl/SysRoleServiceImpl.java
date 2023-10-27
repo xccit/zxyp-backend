@@ -36,7 +36,6 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public PageInfo<SysRole> listRolePage(SysRoleDto sysRoleDto, Integer current, Integer pageSize) {
         PageHelper.startPage(current,pageSize);
-        log.info(sysRoleDto.getRoleName());
         List<SysRole> roleList = sysRoleMapper.listRolePage(sysRoleDto);
         PageInfo<SysRole> sysRolePageInfo = new PageInfo<>(roleList);
         return sysRolePageInfo;

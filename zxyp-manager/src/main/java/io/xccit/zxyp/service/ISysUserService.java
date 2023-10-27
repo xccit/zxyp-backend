@@ -1,8 +1,12 @@
 package io.xccit.zxyp.service;
 
+import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.system.LoginDto;
+import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.model.vo.system.LoginVo;
+
+import java.util.List;
 
 /**
  * @author CH_ywx
@@ -29,4 +33,31 @@ public interface ISysUserService {
      * @param token
      */
     void logout(String token);
+
+    /**
+     * 用户分页列表查询
+     * @param sysUserDto
+     * @param current
+     * @param pageSize
+     * @return
+     */
+    PageInfo<SysUser> listUserPage(SysUserDto sysUserDto, Integer current, Integer pageSize);
+
+    /**
+     * 用户删除
+     * @param userIds
+     */
+    void removeUser(List<Long> userIds);
+
+    /**
+     * 用户修改
+     * @param sysUser
+     */
+    void updateUser(SysUser sysUser);
+
+    /**
+     * 用户添加
+     * @param sysUser
+     */
+    void saveUser(SysUser sysUser);
 }

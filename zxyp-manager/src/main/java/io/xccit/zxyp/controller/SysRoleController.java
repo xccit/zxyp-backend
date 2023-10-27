@@ -35,7 +35,7 @@ public class SysRoleController {
      * @return
      */
     @Operation(summary = "分页条件查询")
-    @GetMapping("/list/{current}/{pageSize}")
+    @GetMapping("/{current}/{pageSize}")
     public AjaxResult listRolePage(@PathVariable Integer current,
                                    @PathVariable Integer pageSize,
                                    SysRoleDto sysRoleDto){

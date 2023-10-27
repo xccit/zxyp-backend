@@ -2,8 +2,12 @@ package io.xccit.zxyp.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.constants.RedisPrefixConstant;
+import io.xccit.zxyp.exception.UserNameExistsException;
 import io.xccit.zxyp.model.dto.system.LoginDto;
+import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.exception.PasswordWrongException;
 import io.xccit.zxyp.exception.UserNotExistsException;
@@ -20,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -99,5 +104,69 @@ public class SysUserServiceImpl implements ISysUserService {
     public void logout(String token) {
         //TODO 删除已登录用户的redis缓存
         redisTemplate.delete(RedisPrefixConstant.LOGIN_USER_PREFIX + token);
+    }
+
+    /**
+     * 用户分页列表查询
+     *
+     * @param sysUserDto
+     * @param current
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<SysUser> listUserPage(SysUserDto sysUserDto, Integer current, Integer pageSize) {
+        PageHelper.startPage(current, pageSize);
+        List<SysUser> userList = sysUserMapper.listUserPage(sysUserDto);
+        PageInfo<SysUser> userPageInfo = new PageInfo<>(userList);
+        return userPageInfo;
+    }
+
+    /**
+     * 用户删除/批量删除
+     *
+     * @param userIds
+     */
+    @Override
+    public void removeUser(List<Long> userIds) {
+        sysUserMapper.remove(userIds);
+    }
+
+    /**
+     * 用户修改
+     *
+     * @param sysUser
+     */
+    @Override
+    public void updateUser(SysUser sysUser) {
+        String userName = sysUser.getUserName();
+        SysUser dbUser = sysUserMapper.selectUserInfoByUserName(userName);
+        if (dbUser != null){
+            //TODO 使用userName查询到user后,如果接收到的userId与查询到的一致,代表更新的是自己,可以放行,否则报错
+            if (dbUser.getId() != sysUser.getId()){
+                throw new UserNameExistsException(205,"用户名已存在,再想一个吧");
+            }
+        }
+        //TODO 密码加密
+        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
+        sysUserMapper.update(sysUser);
+    }
+
+    /**
+     * 用户添加
+     *
+     * @param sysUser
+     */
+    @Override
+    public void saveUser(SysUser sysUser) {
+        String userName = sysUser.getUserName();
+        String password = sysUser.getPassword();
+        SysUser dbUser = sysUserMapper.selectUserInfoByUserName(userName);
+        if (dbUser != null){
+            throw new UserNameExistsException(205,"用户名已存在,再想一个吧");
+        }
+        //TODO 密码加密
+        sysUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        sysUserMapper.save(sysUser);
     }
 }

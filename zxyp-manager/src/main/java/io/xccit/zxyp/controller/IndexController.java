@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2023/10/12
  * @description 登录接口
  */
-@Tag(name = "管理员接口",description = "管理员登录")
+@Tag(name = "后台用户接口",description = "管理员登录")
 @RestController
 @RequestMapping("/admin/system/index")
 public class IndexController {
