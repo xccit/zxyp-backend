@@ -49,7 +49,7 @@ public class SysRoleController {
      * @return
      */
     @Operation(summary = "添加角色")
-    @PostMapping("/save")
+    @PostMapping
     public AjaxResult saveRole(@RequestBody SysRole sysRole){
         sysRoleService.saveRole(sysRole);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);

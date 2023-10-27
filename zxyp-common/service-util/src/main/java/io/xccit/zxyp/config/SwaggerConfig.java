@@ -22,7 +22,7 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi adminApi(){
         return GroupedOpenApi.builder()
-                .group("管理员API")
+                .group("后台接口API")
                 .pathsToMatch("/admin/**")
                 .build();
     }

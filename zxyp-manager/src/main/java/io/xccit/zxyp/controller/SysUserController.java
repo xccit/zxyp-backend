@@ -36,7 +36,7 @@ public class SysUserController {
      * @param sysUserDto
      * @return
      */
-    @Operation(summary = "用户分页列表")
+    @Operation(summary = "用户分页列表",description = "用户分页接口,亦可根据条件查询")
     @GetMapping("/{current}/{pageSize}")
     public AjaxResult listUserPage(@PathVariable Integer current,
                                    @PathVariable Integer pageSize,
@@ -45,7 +45,7 @@ public class SysUserController {
         return AjaxResult.build(userPageInfo, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "用户添加")
+    @Operation(summary = "用户添加",description = "用户添加")
     @PostMapping
     public AjaxResult saveUser(@RequestBody SysUser sysUser){
         sysUserService.saveUser(sysUser);
@@ -57,7 +57,7 @@ public class SysUserController {
      * @param userIds
      * @return
      */
-    @Operation(summary = "用户删除/批量删除")
+    @Operation(summary = "用户删除/批量删除",description = "根据用户集合列表单删或批量删除")
     @DeleteMapping("/{userIds}")
     public AjaxResult removeUser(@PathVariable List<Long> userIds){
         sysUserService.removeUser(userIds);
@@ -69,7 +69,7 @@ public class SysUserController {
      * @param sysUser
      * @return
      */
-    @Operation(summary = "用户修改")
+    @Operation(summary = "用户修改",description = "用户修改")
     @PutMapping
     public AjaxResult updateUser(@RequestBody SysUser sysUser){
         sysUserService.updateUser(sysUser);
