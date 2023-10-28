@@ -17,4 +17,29 @@ public interface SysMenuMapper {
      * @return
      */
     List<SysMenu>  listAll();
+
+    /**
+     * 根据ID查询其是否含有子菜单
+     * @param menuId
+     * @return
+     */
+    int listChildren(Long menuId);
+
+    /**
+     * 删除菜单
+     * @param menuId
+     */
+    void remove(Long menuId);
+
+    /**
+     * 添加菜单
+     * @param sysMenu
+     */
+    void save(SysMenu sysMenu);
+
+    /**
+     * 更新菜单
+     * @param sysMenu
+     */
+    void update(SysMenu sysMenu);
 }

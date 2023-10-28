@@ -16,4 +16,22 @@ public interface ISysMenuService {
      * @return
      */
     List<SysMenu> listMenuNodes();
+
+    /**
+     * 菜单删除
+     * @param menuId
+     */
+    void removeMenu(Long menuId);
+
+    /**
+     * 菜单更新
+     * @param sysMenu
+     */
+    void updateMenu(SysMenu sysMenu);
+
+    /**
+     * 菜单添加
+     * @param sysMenu
+     */
+    void saveMenu(SysMenu sysMenu);
 }

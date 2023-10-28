@@ -84,4 +84,16 @@ public class GlobalExceptionHandler {
     public AjaxResult fileUploadError(FileUploadException ex) {
         return AjaxResult.build(null, ex.getCode(), ex.getMessage());
     }
+
+    /**
+     * 拥有子菜单请求删除异常捕获
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(HadChildrenException.class)
+    public AjaxResult hadChildrenError(HadChildrenException ex) {
+        return AjaxResult.build(null, ex.getCode(), ex.getMessage());
+    }
 }
