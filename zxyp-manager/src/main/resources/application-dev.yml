@@ -24,3 +24,11 @@ zxyp:
         - /admin/system/swagger
         - /doc.html
         - /swagger-ui.html
+        - /admin/system/minio
+
+# 文件上传MINIO配置
+minio:
+  endpoint: http://localhost:9000/
+  bucket: zxyp-bucket
+  accessKey: Sj7W2M3N5Js6MzrsR5GC
+  secretKey: XGhGhMob8DnoeH8ZupBLC7B2MzGvWCgN8krkpZRS

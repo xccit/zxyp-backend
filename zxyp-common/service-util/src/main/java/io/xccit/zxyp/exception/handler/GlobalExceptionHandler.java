@@ -1,9 +1,6 @@
 package io.xccit.zxyp.exception.handler;
 
-import io.xccit.zxyp.exception.PasswordWrongException;
-import io.xccit.zxyp.exception.UserNameExistsException;
-import io.xccit.zxyp.exception.UserNotExistsException;
-import io.xccit.zxyp.exception.ValidateCodeErrorException;
+import io.xccit.zxyp.exception.*;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,6 +70,18 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(UserNameExistsException.class)
     public AjaxResult userNameExistsError(UserNameExistsException ex) {
+        return AjaxResult.build(null, ex.getCode(), ex.getMessage());
+    }
+
+    /**
+     * 文件上传异常捕获
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(FileUploadException.class)
+    public AjaxResult fileUploadError(FileUploadException ex) {
         return AjaxResult.build(null, ex.getCode(), ex.getMessage());
     }
 }
