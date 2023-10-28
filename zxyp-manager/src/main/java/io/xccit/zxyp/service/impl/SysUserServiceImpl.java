@@ -68,7 +68,7 @@ public class SysUserServiceImpl implements ISysUserService {
         }
         String lockedPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes());
         if (!lockedPassword.equals(sysUser.getPassword())) {
-            throw new PasswordWrongException(204, "用户名 或密码错误");
+            throw new PasswordWrongException(204, "用户名或密码错误");
         }
         //TODO 使用jwt生成token
         String token = JWTUtils.createToken(sysUser.getId(), sysUser.getUserName());
@@ -147,8 +147,6 @@ public class SysUserServiceImpl implements ISysUserService {
                 throw new UserNameExistsException(205,"用户名已存在,再想一个吧");
             }
         }
-        //TODO 密码加密
-        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
         sysUserMapper.update(sysUser);
     }
 

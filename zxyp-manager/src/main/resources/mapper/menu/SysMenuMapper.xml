@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.SysMenuMapper">
+
+    <resultMap id="menuVO" type="io.xccit.zxyp.model.entity.system.SysMenu" autoMapping="true">
+        <id column="id" property="id"></id>
+    </resultMap>
+    <sql id="columns">
+        `id`,`parent_id`,`title`,`component`,`sort_value`,`status`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+
+    <!--查询所有菜单-->
+    <select id="listAll" resultMap="menuVO">
+        select <include refid="columns"></include>
+        from sys_menu
+        <where>
+            is_deleted = 0
+        </where>
+        order by `sort_value`
+    </select>
+</mapper>
