@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,6 +27,17 @@ public class SysRoleController {
 
     @Autowired
     private ISysRoleService sysRoleService;
+
+    /**
+     * 查询所有角色/分配角色用
+     * @return
+     */
+    @Operation(summary = "查询所有角色")
+    @GetMapping("/{userId}")
+    public AjaxResult list(@PathVariable Long userId){
+        Map<String,Object> map = sysRoleService.list(userId);
+        return AjaxResult.build(map,ResultCodeEnum.SUCCESS);
+    }
 
     /**
      * 分页查询角色信息

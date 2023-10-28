@@ -5,6 +5,7 @@ import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -40,4 +41,12 @@ public interface ISysRoleService {
      * @param sysRole
      */
     void updateRole(SysRole sysRole);
+
+    /**
+     * 查询所有角色
+     *
+     * @param userId
+     * @return
+     */
+    Map<String, Object> list(Long userId);
 }

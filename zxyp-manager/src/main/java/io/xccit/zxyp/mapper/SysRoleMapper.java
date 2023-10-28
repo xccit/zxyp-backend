@@ -21,4 +21,10 @@ public interface SysRoleMapper {
     void removeByIds(List<Long> roleIds);
 
     void updateRole(SysRole sysRole);
+
+    /**
+     * 查询所有角色
+     * @return
+     */
+    List<SysRole> listAll();
 }

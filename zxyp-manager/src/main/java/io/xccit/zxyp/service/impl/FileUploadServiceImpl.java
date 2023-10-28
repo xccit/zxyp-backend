@@ -79,7 +79,7 @@ public class FileUploadServiceImpl implements IFileUploadService {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(endPoint);
             stringBuilder.append(bucketName);
-            stringBuilder.append(File.separator);
+            stringBuilder.append("/");
             stringBuilder.append(filename);
             url = stringBuilder.toString();
         } catch (MinioException e) {

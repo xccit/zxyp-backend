@@ -3,10 +3,12 @@ package io.xccit.zxyp.controller;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.model.dto.system.AssignRoleDto;
 import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.service.ISysUserRoleService;
 import io.xccit.zxyp.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,11 @@ import java.util.List;
 public class SysUserController {
 
     private final ISysUserService sysUserService;
+    private final ISysUserRoleService sysUserRoleService;
     @Autowired
-    public SysUserController(ISysUserService sysUserService) {
+    public SysUserController(ISysUserService sysUserService,ISysUserRoleService sysUserRoleService) {
         this.sysUserService = sysUserService;
+        this.sysUserRoleService = sysUserRoleService;
     }
 
     /**
@@ -73,6 +77,18 @@ public class SysUserController {
     @PutMapping
     public AjaxResult updateUser(@RequestBody SysUser sysUser){
         sysUserService.updateUser(sysUser);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 用户角色分配
+     * @param assignRoleDto
+     * @return
+     */
+    @Operation(summary = "用户角色分配",description = "用户角色分配")
+    @PostMapping("/assign")
+    public AjaxResult assignRole(@RequestBody AssignRoleDto assignRoleDto){
+        sysUserRoleService.assignRole(assignRoleDto);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 }

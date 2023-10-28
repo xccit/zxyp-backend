@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.SysUserRoleMapper">
+    <sql id="columns">
+        `user_id`,`role_id`,`create_time`,`update_time`
+    </sql>
+    <!--重新分配角色-->
+    <insert id="assignRole">
+        insert into sys_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+    <!--根据用户ID删除之前分配的角色-->
+    <update id="removeRolesByUserID">
+        update sys_user_role set is_deleted = 1
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
+    <!--根据用户ID查询拥有的角色ID-->
+    <select id="listRoleByUserID" resultType="java.lang.Long">
+        select
+        `role_id`
+        from sys_user_role
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+
+</mapper>

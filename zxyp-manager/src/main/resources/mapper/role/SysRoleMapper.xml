@@ -82,5 +82,12 @@
         </where>
         order by id desc
     </select>
+    <!--查询所有角色-->
+    <select id="listAll" resultMap="roleVO">
+        <include refid="selectVO"></include>
+        <where>
+            is_deleted = 0
+        </where>
+    </select>
 
 </mapper>
