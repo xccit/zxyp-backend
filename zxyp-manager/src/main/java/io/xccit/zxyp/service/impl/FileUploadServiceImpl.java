@@ -1,5 +1,6 @@
 package io.xccit.zxyp.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import io.minio.*;
 import io.minio.errors.MinioException;
 import io.xccit.zxyp.exception.FileUploadException;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -58,13 +60,14 @@ public class FileUploadServiceImpl implements IFileUploadService {
             if (!found) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
             } else {
-               log.info("Bucket" + bucketName + " already exists.");
+                log.info("Bucket" + bucketName + " already exists.");
             }
             //TODO 流式文件上传
             String uuid = UUID.randomUUID().toString();
             uuid = uuid.replaceAll("-", "");
-            //TODO 防止文件名重复
-            String filename = uuid + file.getOriginalFilename();
+            //TODO 防止文件名重复+日期文件夹分类
+            String dateDir = DateUtil.format(new Date(), "yyyyMMdd");
+            String filename = dateDir + "/" + uuid + file.getOriginalFilename();
             InputStream inputStream = file.getInputStream();
             long size = file.getSize();
             minioClient.putObject(
