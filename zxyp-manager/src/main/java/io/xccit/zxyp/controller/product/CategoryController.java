@@ -9,6 +9,7 @@ import io.xccit.zxyp.service.product.ICategoryService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,7 +44,19 @@ public class CategoryController {
      */
     @Operation(summary = "分类数据导出")
     @GetMapping("/export")
-    public void export(HttpServletResponse response){
-        categoryService.export(response);
+    public void exportData(HttpServletResponse response){
+        categoryService.exportData(response);
+    }
+
+    /**
+     * 分类数据导入
+     * @param file
+     * @return
+     */
+    @Operation(summary = "分类数据导入",description = "分类数据导入,读取Excel文件,执行数据添加操作")
+    @PostMapping("/import")
+    public AjaxResult importData(MultipartFile file){
+        categoryService.importData(file);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 }

@@ -2,6 +2,7 @@ package io.xccit.zxyp.service.product.impl;
 
 import com.alibaba.excel.EasyExcel;
 import io.xccit.zxyp.exception.ExcelOperatorException;
+import io.xccit.zxyp.listener.ExcelListener;
 import io.xccit.zxyp.mapper.product.CategoryMapper;
 import io.xccit.zxyp.model.entity.product.Category;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.Encoder;
 import java.io.IOException;
@@ -58,7 +60,7 @@ public class CategoryServiceImpl implements ICategoryService {
      * @param response
      */
     @Override
-    public void export(HttpServletResponse response) {
+    public void exportData(HttpServletResponse response) {
         //TODO 查询所有分类信息,封装属性值到CategoryExcelVO
         List<Category> categoryList = categoryMapper.list();
         List<CategoryExcelVo> categoryExcelVoList = new ArrayList<>();
@@ -78,6 +80,22 @@ public class CategoryServiceImpl implements ICategoryService {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            throw new ExcelOperatorException(ResultCodeEnum.EXCEL_ERROR);
+        }
+    }
+
+    /**
+     * 分类数据导入
+     *
+     * @param file
+     */
+    @Override
+    public void importData(MultipartFile file) {
+        ExcelListener<CategoryExcelVo> excelListener = new ExcelListener<>(categoryMapper);
+        try {
+            EasyExcel.read(file.getInputStream(),CategoryExcelVo.class,excelListener).sheet().doRead();
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new ExcelOperatorException(ResultCodeEnum.EXCEL_ERROR);
         }
     }

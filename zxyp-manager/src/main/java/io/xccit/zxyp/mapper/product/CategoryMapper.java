@@ -32,4 +32,6 @@ public interface CategoryMapper {
      * @return
      */
     List<Category> list();
+
+    <T> void batchSave(List<T> cachedDataList);
 }
