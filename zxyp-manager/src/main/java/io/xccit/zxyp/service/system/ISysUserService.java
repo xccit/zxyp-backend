@@ -1,10 +1,11 @@
-package io.xccit.zxyp.service;
+package io.xccit.zxyp.service.system;
 
 import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.system.LoginDto;
 import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.model.vo.system.LoginVo;
+import io.xccit.zxyp.model.vo.system.SysMenuVo;
 
 import java.util.List;
 
@@ -60,4 +61,10 @@ public interface ISysUserService {
      * @param sysUser
      */
     void saveUser(SysUser sysUser);
+
+    /**
+     * 用户登录后根据用户ID获取角色信息,根据角色信息获取菜单列表并封装返回
+     * @return
+     */
+    List<SysMenuVo> getMenus();
 }

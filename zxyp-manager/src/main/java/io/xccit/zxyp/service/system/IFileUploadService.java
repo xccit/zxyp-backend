@@ -1,4 +1,4 @@
-package io.xccit.zxyp.service;
+package io.xccit.zxyp.service.system;
 
 import org.springframework.web.multipart.MultipartFile;
 

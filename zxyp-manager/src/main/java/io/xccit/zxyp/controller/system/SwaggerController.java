@@ -1,4 +1,4 @@
-package io.xccit.zxyp.controller;
+package io.xccit.zxyp.controller.system;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -17,13 +17,49 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     /**
-     * @return 管理员接口
+     * 后台用户接口
+     * @return
      */
     @Bean
     public GroupedOpenApi adminApi(){
         return GroupedOpenApi.builder()
-                .group("后台接口API")
-                .pathsToMatch("/admin/**")
+                .group("后台用户接口")
+                .pathsToMatch("/admin/system/index/**")
+                .build();
+    }
+
+    /**
+     * 通用接口
+     * @return
+     */
+    @Bean
+    public GroupedOpenApi commonApi(){
+        return GroupedOpenApi.builder()
+                .group("通用接口")
+                .pathsToMatch("/admin/system/upload/**")
+                .build();
+    }
+
+    /**
+     * @return 系统接口
+     */
+    @Bean
+    public GroupedOpenApi systemApi(){
+        return GroupedOpenApi.builder()
+                .group("系统接口")
+                .pathsToMatch("/admin/system/**")
+                .pathsToExclude("/admin/system/index/**","/admin/system/upload/**")
+                .build();
+    }
+
+    /**
+     * @return 商品接口
+     */
+    @Bean
+    public GroupedOpenApi productApi(){
+        return GroupedOpenApi.builder()
+                .group("商品接口")
+                .pathsToMatch("/admin/product/**")
                 .build();
     }
 
@@ -37,7 +73,9 @@ public class SwaggerConfig {
                 new Info()
                         .title("甄选优品API")
                         .version("v1.0")
-                        .description("甄选优品API文档")
+                        .description("甄选优品API文档,除后台用户接口之外的所有接口测试需要传token到请求头,可以在成功登录之后复制token到全局参数列表" +
+                                ",放入headers,key为token,值为获取的token值,登录的用户信息存在Redis中,有效时间一小时,一小时内无任何操作需要重新登录并" +
+                                "更新token值")
                         .contact(new Contact().name("xccit").email("darkhorse_1209@outlook.com"))
         );
     }

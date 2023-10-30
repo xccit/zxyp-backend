@@ -1,4 +1,4 @@
-package io.xccit.zxyp.service.impl;
+package io.xccit.zxyp.service.system.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
@@ -8,15 +8,20 @@ import io.xccit.zxyp.constants.RedisPrefixConstant;
 import io.xccit.zxyp.exception.UserNameExistsException;
 import io.xccit.zxyp.model.dto.system.LoginDto;
 import io.xccit.zxyp.model.dto.system.SysUserDto;
+import io.xccit.zxyp.model.entity.system.SysMenu;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.exception.PasswordWrongException;
 import io.xccit.zxyp.exception.UserNotExistsException;
 import io.xccit.zxyp.exception.ValidateCodeErrorException;
-import io.xccit.zxyp.mapper.SysUserMapper;
-import io.xccit.zxyp.service.ISysUserService;
+import io.xccit.zxyp.mapper.system.SysUserMapper;
+import io.xccit.zxyp.model.vo.system.SysMenuVo;
+import io.xccit.zxyp.service.system.ISysUserService;
 import io.xccit.zxyp.util.JWTUtils;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.model.vo.system.LoginVo;
+import io.xccit.zxyp.utils.AuthContextUtil;
+import io.xccit.zxyp.utils.Menu2TreeUtil;
+import io.xccit.zxyp.utils.ToDynamicMenusVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -166,5 +171,23 @@ public class SysUserServiceImpl implements ISysUserService {
         //TODO 密码加密
         sysUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         sysUserMapper.save(sysUser);
+    }
+
+    /**
+     * 用户登录后根据用户ID获取角色信息,根据角色信息获取菜单列表并封装返回
+     *
+     * @return
+     */
+    @Override
+    public List<SysMenuVo> getMenus() {
+        //TODO 从线程变量中获取登录用户
+        SysUser sysUser = AuthContextUtil.getObj();
+        Long userId = sysUser.getId();
+        //TODO 通过userId获取自己能够操作的菜单
+        List<SysMenu> menus = sysUserMapper.listMenusByUserID(userId);
+        //TODO 构建树形菜单结构
+        List<SysMenu> treeMenuList = Menu2TreeUtil.buildTree(menus);
+        //TODO 将构建好的树形结构转换为动态菜单需要的格式返回
+        return ToDynamicMenusVOUtil.toDynamicMenuVO(treeMenuList);
     }
 }

@@ -1,4 +1,4 @@
-package io.xccit.zxyp.controller;
+package io.xccit.zxyp.controller.system;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;
-import io.xccit.zxyp.service.ISysRoleService;
+import io.xccit.zxyp.service.system.ISysRoleService;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.xccit.zxyp.mapper.SysUserMapper">
-
+<mapper namespace="io.xccit.zxyp.mapper.system.SysUserMapper">
+    <!--菜单VO-->
+    <resultMap id="menuVO" type="io.xccit.zxyp.model.entity.system.SysMenu" autoMapping="true">
+        <id column="id" property="id"></id>
+    </resultMap>
+    <sql id="columns">
+        `id`,`parent_id`,`title`,`component`,`sort_value`,`status`,`create_time`,`update_time`,`is_deleted`
+    </sql>
     <!--配置了自动映射,这里手动映射一次-->
     <resultMap id="sysUserVO" type="io.xccit.zxyp.model.entity.system.SysUser">
         <id column="id" property="id"></id>
@@ -134,5 +140,18 @@
             and is_deleted = 0
         </where>
         order by id desc
+    </select>
+    <!--根据用户ID查询用户拥有的菜单信息 条件:未删除的,状态为正常的-->
+    <select id="listMenusByUserID" resultType="io.xccit.zxyp.model.entity.system.SysMenu">
+        select DISTINCT m.id,m.parent_id,m.title,m.component,m.sort_value,m.status
+        from sys_menu m
+        inner join sys_role_menu rm on rm.menu_id = m.id
+        inner join sys_user_role ur on ur.role_id = rm.role_id
+        <where>
+            <if test="userId != null">
+                and ur.user_id = #{userId}
+            </if>
+            and m.is_deleted = 0 and m.status = 1
+        </where>
     </select>
 </mapper>

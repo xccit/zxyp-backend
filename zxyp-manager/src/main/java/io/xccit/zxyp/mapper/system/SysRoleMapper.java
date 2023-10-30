@@ -1,4 +1,4 @@
-package io.xccit.zxyp.mapper;
+package io.xccit.zxyp.mapper.system;
 
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;

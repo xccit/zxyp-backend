@@ -1,4 +1,4 @@
-package io.xccit.zxyp.mapper;
+package io.xccit.zxyp.mapper.system;
 
 import io.xccit.zxyp.model.entity.system.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
@@ -42,4 +42,11 @@ public interface SysMenuMapper {
      * @param sysMenu
      */
     void update(SysMenu sysMenu);
+
+    /**
+     * 查询此菜单父级ID对应的菜单信息
+     * @param parentId
+     * @return
+     */
+    SysMenu getByID(Long parentId);
 }

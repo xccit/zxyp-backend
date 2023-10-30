@@ -1,4 +1,4 @@
-package io.xccit.zxyp.controller;
+package io.xccit.zxyp.controller.system;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,8 +8,8 @@ import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
-import io.xccit.zxyp.service.ISysUserRoleService;
-import io.xccit.zxyp.service.ISysUserService;
+import io.xccit.zxyp.service.system.ISysUserRoleService;
+import io.xccit.zxyp.service.system.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

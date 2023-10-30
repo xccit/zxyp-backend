@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.xccit.zxyp.mapper.SysUserRoleMapper">
+<mapper namespace="io.xccit.zxyp.mapper.system.SysUserRoleMapper">
     <sql id="columns">
         `user_id`,`role_id`,`create_time`,`update_time`
     </sql>

@@ -1,10 +1,9 @@
-package io.xccit.zxyp.service.impl;
+package io.xccit.zxyp.service.system.impl;
 
-import io.xccit.zxyp.mapper.SysMenuMapper;
-import io.xccit.zxyp.mapper.SysRoleMenuMapper;
+import io.xccit.zxyp.mapper.system.SysRoleMenuMapper;
 import io.xccit.zxyp.model.entity.system.SysMenu;
-import io.xccit.zxyp.service.ISysMenuService;
-import io.xccit.zxyp.service.ISysRoleMenuService;
+import io.xccit.zxyp.service.system.ISysMenuService;
+import io.xccit.zxyp.service.system.ISysRoleMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

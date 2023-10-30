@@ -1,4 +1,4 @@
-package io.xccit.zxyp.mapper;
+package io.xccit.zxyp.mapper.system;
 
 import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.entity.system.SysMenu;
@@ -30,4 +30,10 @@ public interface SysRoleMenuMapper {
      * @param roleId
      */
     void removeMenuByRoleID(Long roleId);
+
+    /**
+     * 设置新添加菜单的父级菜单isHalf为半开
+     * @param id
+     */
+    void updateIsHalfByMenuID(Long id);
 }

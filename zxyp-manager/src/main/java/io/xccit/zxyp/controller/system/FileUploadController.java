@@ -1,10 +1,10 @@
-package io.xccit.zxyp.controller;
+package io.xccit.zxyp.controller.system;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
-import io.xccit.zxyp.service.IFileUploadService;
+import io.xccit.zxyp.service.system.IFileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

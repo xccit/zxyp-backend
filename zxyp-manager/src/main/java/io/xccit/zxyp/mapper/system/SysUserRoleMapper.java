@@ -1,4 +1,4 @@
-package io.xccit.zxyp.mapper;
+package io.xccit.zxyp.mapper.system;
 
 import org.apache.ibatis.annotations.Mapper;
 

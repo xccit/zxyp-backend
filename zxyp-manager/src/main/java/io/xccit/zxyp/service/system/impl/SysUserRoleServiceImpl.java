@@ -1,10 +1,8 @@
-package io.xccit.zxyp.service.impl;
+package io.xccit.zxyp.service.system.impl;
 
-import io.xccit.zxyp.mapper.SysRoleMapper;
-import io.xccit.zxyp.mapper.SysUserRoleMapper;
+import io.xccit.zxyp.mapper.system.SysUserRoleMapper;
 import io.xccit.zxyp.model.dto.system.AssignRoleDto;
-import io.xccit.zxyp.model.entity.system.SysRole;
-import io.xccit.zxyp.service.ISysUserRoleService;
+import io.xccit.zxyp.service.system.ISysUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

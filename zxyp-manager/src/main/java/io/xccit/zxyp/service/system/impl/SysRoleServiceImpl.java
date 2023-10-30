@@ -1,15 +1,15 @@
-package io.xccit.zxyp.service.impl;
+package io.xccit.zxyp.service.system.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.xccit.zxyp.mapper.SysRoleMenuMapper;
-import io.xccit.zxyp.mapper.SysUserRoleMapper;
+import io.xccit.zxyp.mapper.system.SysRoleMenuMapper;
+import io.xccit.zxyp.mapper.system.SysUserRoleMapper;
 import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
-import io.xccit.zxyp.mapper.SysRoleMapper;
+import io.xccit.zxyp.mapper.system.SysRoleMapper;
 import io.xccit.zxyp.model.entity.system.SysRole;
-import io.xccit.zxyp.service.ISysRoleService;
+import io.xccit.zxyp.service.system.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

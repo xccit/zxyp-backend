@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.xccit.zxyp.mapper.SysRoleMapper">
+<mapper namespace="io.xccit.zxyp.mapper.system.SysRoleMapper">
     <resultMap id="roleVO" type="io.xccit.zxyp.model.entity.system.SysRole">
         <id property="id" column="id"></id>
         <result column="role_name" property="roleName"></result>
