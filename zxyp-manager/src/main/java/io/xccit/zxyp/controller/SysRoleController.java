@@ -3,6 +3,7 @@ package io.xccit.zxyp.controller;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;
 import io.xccit.zxyp.service.ISysRoleService;
@@ -29,10 +30,10 @@ public class SysRoleController {
     private ISysRoleService sysRoleService;
 
     /**
-     * 查询所有角色/分配角色用
+     * 根据用户ID查询所有角色/分配角色用
      * @return
      */
-    @Operation(summary = "查询所有角色")
+    @Operation(summary = "查询所有角色",description = "根据用户ID查询所有角色/分配角色用")
     @GetMapping("/{userId}")
     public AjaxResult list(@PathVariable Long userId){
         Map<String,Object> map = sysRoleService.list(userId);
@@ -79,10 +80,28 @@ public class SysRoleController {
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 
+    /**
+     * 角色修改
+     * @param sysRole
+     * @return
+     */
     @Operation(summary = "修改角色")
     @PutMapping
     public AjaxResult updateRole(@RequestBody SysRole sysRole){
         sysRoleService.updateRole(sysRole);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 分配菜单
+     *
+     * @param assignMenuDto
+     * @return
+     */
+    @Operation(summary = "角色分配菜单")
+    @PostMapping("/assign")
+    public AjaxResult assignMenu(@RequestBody AssignMenuDto assignMenuDto){
+        sysRoleService.assignMenu(assignMenuDto);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 }

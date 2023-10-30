@@ -3,7 +3,9 @@ package io.xccit.zxyp.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.xccit.zxyp.mapper.SysRoleMenuMapper;
 import io.xccit.zxyp.mapper.SysUserRoleMapper;
+import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.mapper.SysRoleMapper;
 import io.xccit.zxyp.model.entity.system.SysRole;
@@ -29,6 +31,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
     private SysRoleMapper sysRoleMapper;
     @Autowired
     private SysUserRoleMapper sysUserRoleMapper;
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
     /**
      * 分页条件获取角色信息
@@ -93,5 +97,21 @@ public class SysRoleServiceImpl implements ISysRoleService {
         result.put("allRolesList",roleList);
         result.put("sysUserRoles",userRoleIds);
         return result;
+    }
+
+    /**
+     * 角色菜单分配
+     *
+     * @param assignMenuDto
+     */
+    @Override
+    public void assignMenu(AssignMenuDto assignMenuDto) {
+        List<Map<String, Number>> menuInfo = assignMenuDto.getMenuIdList();
+        //删除分配过的菜单
+        sysRoleMenuMapper.removeMenuByRoleID(assignMenuDto.getRoleId());
+        //分配菜单
+        if (menuInfo != null && menuInfo.size() > 0){
+            sysRoleMenuMapper.assignMenu(assignMenuDto);
+        }
     }
 }

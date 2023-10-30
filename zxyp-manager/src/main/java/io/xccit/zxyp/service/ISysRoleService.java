@@ -1,6 +1,7 @@
 package io.xccit.zxyp.service;
 
 import com.github.pagehelper.PageInfo;
+import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;
 
@@ -49,4 +50,10 @@ public interface ISysRoleService {
      * @return
      */
     Map<String, Object> list(Long userId);
+
+    /**
+     * 角色菜单分配
+     * @param assignMenuDto
+     */
+    void assignMenu(AssignMenuDto assignMenuDto);
 }
