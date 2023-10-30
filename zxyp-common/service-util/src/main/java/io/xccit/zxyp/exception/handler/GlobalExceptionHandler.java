@@ -96,4 +96,16 @@ public class GlobalExceptionHandler {
     public AjaxResult hadChildrenError(HadChildrenException ex) {
         return AjaxResult.build(null, ex.getCode(), ex.getMessage());
     }
+
+    /**
+     * Excel操作异常捕获
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(ExcelOperatorException.class)
+    public AjaxResult hadChildrenError(ExcelOperatorException ex) {
+        return AjaxResult.build(null, ex.getCode(), ex.getMessage());
+    }
 }

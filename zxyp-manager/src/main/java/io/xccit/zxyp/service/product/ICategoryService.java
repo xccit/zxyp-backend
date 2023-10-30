@@ -1,6 +1,7 @@
 package io.xccit.zxyp.service.product;
 
 import io.xccit.zxyp.model.entity.product.Category;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -16,4 +17,10 @@ public interface ICategoryService {
      * @return
      */
     List<Category> listCategory(Long id);
+
+    /**
+     * 分类数据导出
+     * @param response
+     */
+    void export(HttpServletResponse response);
 }

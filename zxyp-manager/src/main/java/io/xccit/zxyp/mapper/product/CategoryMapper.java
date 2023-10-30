@@ -1,6 +1,7 @@
 package io.xccit.zxyp.mapper.product;
 
 import io.xccit.zxyp.model.entity.product.Category;
+import io.xccit.zxyp.model.vo.product.CategoryExcelVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface CategoryMapper {
      * @return
      */
     int getCountByParentID(Long id);
+
+    /**
+     * 查询所有分类信息
+     * @return
+     */
+    List<Category> list();
 }

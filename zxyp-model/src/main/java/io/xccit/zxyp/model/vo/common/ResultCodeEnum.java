@@ -15,6 +15,7 @@ public enum ResultCodeEnum {
     SYSTEM_ERROR(9999 , "系统异常,请稍后重试"),
     MENU_ERROR( 217, "该菜单下有子菜单，不可以删除"),
     DATA_ERROR(204, "数据异常"),
+    EXCEL_ERROR(205, "Excel操作异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
     STOCK_LESS( 219, "库存不足");
 

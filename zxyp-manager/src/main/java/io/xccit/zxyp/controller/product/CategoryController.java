@@ -6,6 +6,7 @@ import io.xccit.zxyp.model.entity.product.Category;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.service.product.ICategoryService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +35,15 @@ public class CategoryController {
     public AjaxResult listCategory(@PathVariable Long id){
         List<Category> categoryList = categoryService.listCategory(id);
         return AjaxResult.build(categoryList, ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 导出数据
+     * @param response
+     */
+    @Operation(summary = "分类数据导出")
+    @GetMapping("/export")
+    public void export(HttpServletResponse response){
+        categoryService.export(response);
     }
 }

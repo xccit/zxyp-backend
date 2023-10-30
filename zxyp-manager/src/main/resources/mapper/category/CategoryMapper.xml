@@ -30,4 +30,12 @@
             and is_deleted = 0
         </where>
     </select>
+    <!--查询所有分类信息-->
+    <select id="list" resultMap="categoryVO">
+        select <include refid="columns"/>
+        from category
+        <where>
+            is_deleted = 0
+        </where>
+    </select>
 </mapper>

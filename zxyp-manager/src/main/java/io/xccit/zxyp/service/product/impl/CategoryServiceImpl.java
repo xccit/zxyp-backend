@@ -1,11 +1,22 @@
 package io.xccit.zxyp.service.product.impl;
 
+import com.alibaba.excel.EasyExcel;
+import io.xccit.zxyp.exception.ExcelOperatorException;
 import io.xccit.zxyp.mapper.product.CategoryMapper;
 import io.xccit.zxyp.model.entity.product.Category;
+import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.product.CategoryExcelVo;
 import io.xccit.zxyp.service.product.ICategoryService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.Encoder;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,5 +50,35 @@ public class CategoryServiceImpl implements ICategoryService {
             }
         });
         return categoryList;
+    }
+
+    /**
+     * 分类数据导出
+     *
+     * @param response
+     */
+    @Override
+    public void export(HttpServletResponse response) {
+        //TODO 查询所有分类信息,封装属性值到CategoryExcelVO
+        List<Category> categoryList = categoryMapper.list();
+        List<CategoryExcelVo> categoryExcelVoList = new ArrayList<>();
+        for (Category category : categoryList) {
+            CategoryExcelVo categoryExcelVo = new CategoryExcelVo();
+            BeanUtils.copyProperties(category,categoryExcelVo);
+            categoryExcelVoList.add(categoryExcelVo);
+        }
+        try {
+            //TODO 设置文件名及编码信息
+            String fileName = URLEncoder.encode("分类信息","UTF-8");//TODO 设置相应头及响应体
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-disposition","attachment;filename="+fileName+".xlsx");
+            //TODO 数据写出
+            EasyExcel.write(response.getOutputStream(), CategoryExcelVo.class).sheet("分类数据").doWrite(categoryExcelVoList);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new ExcelOperatorException(ResultCodeEnum.EXCEL_ERROR);
+        }
     }
 }
