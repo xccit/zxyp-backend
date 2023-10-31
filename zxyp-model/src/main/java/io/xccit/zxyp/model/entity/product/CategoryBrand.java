@@ -14,6 +14,9 @@ public class CategoryBrand extends BaseEntity {
 	@Schema(description = "分类id")
 	private Long categoryId;
 
+	@Schema(description = "分类图片")
+	private String categoryImage;
+
 	@Schema(description = "分类名称" , required = false)
 	private String categoryName;
 

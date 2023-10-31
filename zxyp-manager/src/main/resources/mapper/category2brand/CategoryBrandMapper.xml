@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.product.CategoryBrandMapper">
+
+    <resultMap id="categoryBrandVO" type="io.xccit.zxyp.model.entity.product.CategoryBrand" autoMapping="true"></resultMap>
+    <sql id="columns">
+        `id`,`brand_id`,`category_id`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+
+    <select id="listCategoryBrandPage" resultMap="categoryBrandVO">
+        select cb.*,c.image_url AS categoryImage,b.name brandName,b.logo AS logo,c.name categoryName
+        from category_brand cb
+        INNER JOIN category c ON cb.category_id = c.id
+        INNER JOIN brand b ON cb.brand_id = b.id
+        <where>
+            <if test="brandId != null">
+                and brand_id = #{brandId}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            and cb.is_deleted = 0
+        </where>
+    </select>
+</mapper>

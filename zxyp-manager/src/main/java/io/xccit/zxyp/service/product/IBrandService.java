@@ -36,4 +36,10 @@ public interface IBrandService {
      * @param ids
      */
     void removeBrand(List<Long> ids);
+
+    /**
+     * 品牌列表
+     * @return
+     */
+    List<Brand> list();
 }

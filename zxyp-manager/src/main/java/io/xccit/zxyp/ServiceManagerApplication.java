@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = {"io.xccit.zxyp.**.mapper"})
 @ComponentScan(basePackages = {"io.xccit.zxyp.**"})
 @EnableConfigurationProperties({WebAuthConfigProperties.class})
+@ServletComponentScan(basePackages = {"io.xccit.zxyp.config"})
 @SpringBootApplication
 public class ServiceManagerApplication {
     public static void main(String[] args) {

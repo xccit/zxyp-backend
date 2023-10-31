@@ -26,6 +26,17 @@ public class BrandController {
     private IBrandService brandService;
 
     /**
+     * 品牌列表
+     * @return
+     */
+    @Operation(summary = "品牌列表",description = "所有品牌数据")
+    @GetMapping
+    public AjaxResult list(){
+        List<Brand> list = brandService.list();
+        return AjaxResult.build(list,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
      * 品牌分页列表
      * @param current
      * @param pageSize

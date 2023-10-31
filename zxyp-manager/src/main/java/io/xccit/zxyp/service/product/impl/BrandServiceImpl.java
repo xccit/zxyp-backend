@@ -67,4 +67,14 @@ public class BrandServiceImpl implements IBrandService {
     public void removeBrand(List<Long> ids) {
         brandMapper.remove(ids);
     }
+
+    /**
+     * 品牌列表
+     *
+     * @return
+     */
+    @Override
+    public List<Brand> list() {
+        return brandMapper.list();
+    }
 }
