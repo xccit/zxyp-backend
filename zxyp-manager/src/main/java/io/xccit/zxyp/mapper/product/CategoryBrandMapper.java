@@ -19,4 +19,10 @@ public interface CategoryBrandMapper {
      * @return
      */
     List<CategoryBrand> listCategoryBrandPage(CategoryBrandDto categoryBrandDto);
+
+    /**
+     * 品牌分类添加
+     * @param categoryBrand
+     */
+    void save(CategoryBrand categoryBrand);
 }

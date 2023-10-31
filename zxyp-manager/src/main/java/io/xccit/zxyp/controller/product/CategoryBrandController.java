@@ -9,10 +9,7 @@ import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.service.product.ICategoryBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author CH_ywx
@@ -34,5 +31,12 @@ public class CategoryBrandController {
                            CategoryBrandDto categoryBrandDto){
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.listCategoryBrandPage(current,pageSize,categoryBrandDto);
         return AjaxResult.build(pageInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "品牌分类添加")
+    @PostMapping
+    public AjaxResult save(@RequestBody CategoryBrand categoryBrand){
+        categoryBrandService.save(categoryBrand);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 }

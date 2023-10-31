@@ -8,6 +8,27 @@
     <sql id="columns">
         `id`,`brand_id`,`category_id`,`create_time`,`update_time`,`is_deleted`
     </sql>
+    <!--品牌分类添加-->
+    <insert id="save">
+        insert into category_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                #{brandId},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId},
+            </if>
+        </trim>
+    </insert>
 
     <select id="listCategoryBrandPage" resultMap="categoryBrandVO">
         select cb.*,c.image_url AS categoryImage,b.name brandName,b.logo AS logo,c.name categoryName

@@ -18,4 +18,10 @@ public interface ICategoryBrandService {
      * @return
      */
     PageInfo<CategoryBrand> listCategoryBrandPage(Integer current, Integer pageSize, CategoryBrandDto categoryBrandDto);
+
+    /**
+     * 品牌分类添加
+     * @param categoryBrand
+     */
+    void save(CategoryBrand categoryBrand);
 }

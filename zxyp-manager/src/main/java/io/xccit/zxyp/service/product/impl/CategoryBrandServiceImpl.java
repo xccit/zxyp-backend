@@ -39,4 +39,14 @@ public class CategoryBrandServiceImpl implements ICategoryBrandService {
         PageInfo<CategoryBrand> categoryBrandPageInfo = new PageInfo<>(categoryBrandList);
         return categoryBrandPageInfo;
     }
+
+    /**
+     * 品牌分类添加
+     *
+     * @param categoryBrand
+     */
+    @Override
+    public void save(CategoryBrand categoryBrand) {
+        categoryBrandMapper.save(categoryBrand);
+    }
 }
