@@ -29,6 +29,35 @@
             </if>
         </trim>
     </insert>
+    <!--品牌分类删除-->
+    <update id="remove">
+        update category_brand
+        <set>
+            is_deleted = 1
+        </set>
+        <where>
+            id in
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <!--品牌分类修改-->
+    <update id="update">
+        update category_brand
+        <set>
+            <if test="brandId != null">
+                brand_id = #{brandId},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
 
     <select id="listCategoryBrandPage" resultMap="categoryBrandVO">
         select cb.*,c.image_url AS categoryImage,b.name brandName,b.logo AS logo,c.name categoryName

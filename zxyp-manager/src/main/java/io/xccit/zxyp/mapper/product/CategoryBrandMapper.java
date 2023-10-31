@@ -25,4 +25,16 @@ public interface CategoryBrandMapper {
      * @param categoryBrand
      */
     void save(CategoryBrand categoryBrand);
+
+    /**
+     * 品牌分类修改
+     * @param categoryBrand
+     */
+    void update(CategoryBrand categoryBrand);
+
+    /**
+     * 品牌分类删除
+     * @param ids
+     */
+    void remove(List<Long> ids);
 }

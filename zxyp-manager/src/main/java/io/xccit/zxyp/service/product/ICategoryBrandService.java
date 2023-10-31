@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.product.CategoryBrandDto;
 import io.xccit.zxyp.model.entity.product.CategoryBrand;
 
+import java.util.List;
+
 /**
  * @author CH_ywx
  * @date 2023/10/31
@@ -24,4 +26,16 @@ public interface ICategoryBrandService {
      * @param categoryBrand
      */
     void save(CategoryBrand categoryBrand);
+
+    /**
+     * 品牌分类修改
+     * @param categoryBrand
+     */
+    void update(CategoryBrand categoryBrand);
+
+    /**
+     * 品牌分类删除
+     * @param ids
+     */
+    void remove(List<Long> ids);
 }
