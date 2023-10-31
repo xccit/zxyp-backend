@@ -25,6 +25,18 @@ public class ProductController {
     private IProductService productService;
 
     /**
+     * 根据商品ID获取商品信息
+     * @param productId
+     * @return
+     */
+    @Operation(summary = "根据商品ID获取商品信息")
+    @GetMapping("/{productId}")
+    public AjaxResult getOne(@PathVariable Long productId){
+        Product product = productService.getOne(productId);
+        return AjaxResult.build(product,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
      * 分页列表条件查询
      * @param current
      * @param pageSize
@@ -49,6 +61,18 @@ public class ProductController {
     @PostMapping
     public AjaxResult save(@RequestBody Product product){
         productService.save(product);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 修改商品信息
+     * @param product
+     * @return
+     */
+    @Operation(summary = "商品信息修改")
+    @PutMapping
+    public AjaxResult update(@RequestBody Product product){
+        productService.update(product);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
 }

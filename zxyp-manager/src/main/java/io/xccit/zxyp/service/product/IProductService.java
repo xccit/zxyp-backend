@@ -24,4 +24,17 @@ public interface IProductService {
      * @param product
      */
     void save(Product product);
+
+    /**
+     * 根据商品ID获取商品信息
+     * @param productId
+     * @return
+     */
+    Product getOne(Long productId);
+
+    /**
+     * 商品信息修改
+     * @param product
+     */
+    void update(Product product);
 }

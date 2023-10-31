@@ -84,4 +84,45 @@ public class ProductServiceImpl implements IProductService {
         productDetails.setImageUrls(product.getDetailsImageUrls());
         productDetailsMapper.save(productDetails);
     }
+
+    /**
+     * 根据商品ID获取商品信息
+     *
+     * @param productId
+     * @return
+     */
+    @Override
+    public Product getOne(Long productId) {
+        //TODO 获取基本商品信息
+        Product product = productMapper.getOne(productId);
+        //TODO 根据商品ID查询sku信息并封装
+        List<ProductSku> productSkuList = productSkuMapper.getSkuByProductID(productId);
+        product.setProductSkuList(productSkuList);
+        //TODO 根据商品ID查询商品详情信息并封装
+        ProductDetails productDetails = productDetailsMapper.getDetailsByProductID(productId);
+        String imageUrls = productDetails.getImageUrls();
+        product.setDetailsImageUrls(imageUrls);
+        return product;
+    }
+
+    /**
+     * 商品信息修改
+     *
+     * @param product
+     */
+    @Override
+    public void update(Product product) {
+        //TODO 修改商品信息
+        productMapper.update(product);
+        //TODO 修改商品Sku信息
+        List<ProductSku> productSkuList = product.getProductSkuList();
+        productSkuList.forEach(productSku -> {
+            productSkuMapper.update(productSku);
+        });
+        //TODO 修改商品详情信息
+        String detailsImageUrls = product.getDetailsImageUrls();
+        ProductDetails productDetails = productDetailsMapper.getDetailsByProductID(product.getId());
+        productDetails.setImageUrls(detailsImageUrls);
+        productDetailsMapper.update(productDetails);
+    }
 }

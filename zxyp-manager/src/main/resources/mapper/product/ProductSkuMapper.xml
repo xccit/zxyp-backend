@@ -4,6 +4,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.xccit.zxyp.mapper.product.ProductSkuMapper">
 
+    <resultMap id="skuVO" type="io.xccit.zxyp.model.entity.product.ProductSku" autoMapping="true"></resultMap>
+    <sql id="columns">
+        id,
+        sku_code,
+        sku_name,
+        product_id,
+        thumb_img,
+        sale_price,
+        market_price,
+        cost_price,
+        stock_num,
+        sku_spec,
+        weight,
+        volume,
+        status,
+        sale_num
+    </sql>
     <!--添加商品Sku信息-->
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
         insert into product_sku (
@@ -38,4 +55,57 @@
         #{saleNum}
         )
     </insert>
+    <!--修改商品Sku信息-->
+    <update id="update">
+        update product_sku set
+        <if test="skuCode != null and skuCode != ''">
+            sku_code = #{skuCode},
+        </if>
+        <if test="skuName != null and skuName != ''">
+            sku_name = #{skuName},
+        </if>
+        <if test="productId != null and productId != ''">
+            product_id = #{productId},
+        </if>
+        <if test="thumbImg != null and thumbImg != ''">
+            thumb_img = #{thumbImg},
+        </if>
+        <if test="salePrice != null and salePrice != ''">
+            sale_price = #{salePrice},
+        </if>
+        <if test="marketPrice != null and marketPrice != ''">
+            market_price = #{marketPrice},
+        </if>
+        <if test="costPrice != null and costPrice != ''">
+            cost_price = #{costPrice},
+        </if>
+        <if test="stockNum != null and stockNum != ''">
+            stock_num = #{stockNum},
+        </if>
+        <if test="skuSpec != null and skuSpec != ''">
+            sku_spec = #{skuSpec},
+        </if>
+        <if test="weight != null and weight != ''">
+            weight = #{weight},
+        </if>
+        <if test="volume != null and volume != ''">
+            volume = #{volume},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        update_time =  CURRENT_TIMESTAMP
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <!--根据商品ID查询sku信息并封装-->
+    <select id="getSkuByProductID" resultMap="skuVO">
+        select <include refid="columns"/>
+        from product_sku
+        <where>
+            and product_id = #{productId}
+            and is_deleted = 0
+        </where>
+    </select>
 </mapper>

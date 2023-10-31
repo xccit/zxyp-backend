@@ -16,4 +16,17 @@ public interface ProductDetailsMapper {
      * @param productDetails
      */
     void save(ProductDetails productDetails);
+
+    /**
+     * 根据商品ID查询商品详情信息并封装
+     * @param productId
+     * @return
+     */
+    ProductDetails getDetailsByProductID(Long productId);
+
+    /**
+     * 修改商品详情信息
+     * @param productDetails
+     */
+    void update(ProductDetails productDetails);
 }

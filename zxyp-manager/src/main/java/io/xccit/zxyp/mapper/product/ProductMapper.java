@@ -26,4 +26,17 @@ public interface ProductMapper {
      * @param product
      */
     void save(Product product);
+
+    /**
+     * 根据ID获取基本商品信息
+     * @param productId
+     * @return
+     */
+    Product getOne(Long productId);
+
+    /**
+     * 修改商品信息
+     * @param product
+     */
+    void update(Product product);
 }
