@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.product.ProductSpecMapper">
+    <resultMap id="productSpecVO" type="io.xccit.zxyp.model.entity.product.ProductSpec" autoMapping="true">
+    </resultMap>
+    <sql id="columns">
+        `id`,`spec_name`,`spec_value`,`create_time`,`update_time`
+    </sql>
+    <!--商品规格添加-->
+    <insert id="save">
+        insert into product_spec
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specName != null and specName != ''">
+                spec_name,
+            </if>
+            <if test="specValue != null and specValue != ''">
+                spec_value,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specName != null and specName != ''">
+                #{specName},
+            </if>
+            <if test="specValue != null and specValue != ''">
+                #{specValue},
+            </if>
+        </trim>
+    </insert>
+    <!--商品规格删除/批量删除-->
+    <update id="remove">
+        update product_spec
+        <set>
+            is_deleted = 1
+        </set>
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <!--商品规格修改-->
+    <update id="update">
+        update product_spec
+        <set>
+            <if test="specName != null and specName != ''">
+                spec_name = #{specName},
+            </if>
+            <if test="specValue != null and specValue != ''">
+                spec_value = #{specValue},
+            </if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <!--商品规格分页列表-->
+    <select id="list" resultMap="productSpecVO">
+        select <include refid="columns"/>
+        from product_spec
+        <where>
+            is_deleted = 0
+        </where>
+    </select>
+</mapper>
