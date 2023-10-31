@@ -1,5 +1,6 @@
 package io.xccit.zxyp;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.xccit.zxyp.config.WebAuthConfigProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023/10/11
  * @description 管理端启动类
  */
+@EnableEncryptableProperties //开启数据源密码加密
 @MapperScan(basePackages = {"io.xccit.zxyp.**.mapper"})
 @ComponentScan(basePackages = {"io.xccit.zxyp.**"})
 @EnableConfigurationProperties({WebAuthConfigProperties.class})
