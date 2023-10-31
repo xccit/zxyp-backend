@@ -1,6 +1,7 @@
 package io.xccit.zxyp.mapper.product;
 
 import io.xccit.zxyp.model.dto.product.CategoryBrandDto;
+import io.xccit.zxyp.model.entity.product.Brand;
 import io.xccit.zxyp.model.entity.product.CategoryBrand;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -37,4 +38,11 @@ public interface CategoryBrandMapper {
      * @param ids
      */
     void remove(List<Long> ids);
+
+    /**
+     * 根据分类ID查询品牌数据
+     * @param categoryId
+     * @return
+     */
+    List<Brand> listBrandByCategoryID(Long categoryId);
 }

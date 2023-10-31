@@ -74,4 +74,16 @@
             and cb.is_deleted = 0
         </where>
     </select>
+    <!--根据分类ID查询品牌数据-->
+    <select id="listBrandByCategoryID" resultType="io.xccit.zxyp.model.entity.product.Brand">
+        SELECT
+            b.id,b.logo,b.name
+        FROM category_brand cb
+        INNER JOIN brand b ON b.id = cb.brand_id
+        <where>
+            and cb.category_id = #{categoryId}
+            and cb.is_deleted = 0
+            and b.is_deleted = 0
+        </where>
+    </select>
 </mapper>

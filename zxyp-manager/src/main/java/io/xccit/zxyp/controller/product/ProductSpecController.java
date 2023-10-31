@@ -26,6 +26,17 @@ public class ProductSpecController {
     private IProductSpecService productSpecService;
 
     /**
+     * 商品规格列表
+     * @return
+     */
+    @Operation(summary = "商品规格列表")
+    @GetMapping
+    public AjaxResult list(){
+        List<ProductSpec> list = productSpecService.list();
+        return AjaxResult.build(list,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
      * 商品规格分页列表
      * @param current
      * @param pageSize

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.mapper.product.CategoryBrandMapper;
 import io.xccit.zxyp.model.dto.product.CategoryBrandDto;
+import io.xccit.zxyp.model.entity.product.Brand;
 import io.xccit.zxyp.model.entity.product.CategoryBrand;
 import io.xccit.zxyp.service.product.ICategoryBrandService;
 import lombok.extern.slf4j.Slf4j;
@@ -68,5 +69,16 @@ public class CategoryBrandServiceImpl implements ICategoryBrandService {
     @Override
     public void remove(List<Long> ids) {
         categoryBrandMapper.remove(ids);
+    }
+
+    /**
+     * 根据分类ID查询品牌数据
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Brand> listBrandByCategoryID(Long categoryId) {
+        return categoryBrandMapper.listBrandByCategoryID(categoryId);
     }
 }

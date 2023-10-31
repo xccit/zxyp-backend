@@ -65,4 +65,14 @@ public class ProductSpecServiceImpl implements IProductSpecService {
     public void save(ProductSpec productSpec) {
         productSpecMapper.save(productSpec);
     }
+
+    /**
+     * 商品规格列表
+     *
+     * @return
+     */
+    @Override
+    public List<ProductSpec> list() {
+        return productSpecMapper.list();
+    }
 }

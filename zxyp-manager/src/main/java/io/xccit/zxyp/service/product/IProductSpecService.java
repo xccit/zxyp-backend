@@ -35,4 +35,10 @@ public interface IProductSpecService {
      * @param productSpec
      */
     void save(ProductSpec productSpec);
+
+    /**
+     * 商品规格列表
+     * @return
+     */
+    List<ProductSpec> list();
 }

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xccit.zxyp.model.dto.product.CategoryBrandDto;
+import io.xccit.zxyp.model.entity.product.Brand;
 import io.xccit.zxyp.model.entity.product.CategoryBrand;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
@@ -25,6 +26,18 @@ public class CategoryBrandController {
 
     @Autowired
     private ICategoryBrandService categoryBrandService;
+
+    /**
+     * 根据分类ID查询品牌数据
+     * @param categoryId
+     * @return
+     */
+    @Operation(summary = "根据分类ID查询品牌数据")
+    @GetMapping("/listBrand/{categoryId}")
+    public AjaxResult listBrandByCategoryID(@PathVariable Long categoryId){
+        List<Brand> list = categoryBrandService.listBrandByCategoryID(categoryId);
+        return AjaxResult.build(list,ResultCodeEnum.SUCCESS);
+    }
 
     /**
      * 品牌分类分页条件列表

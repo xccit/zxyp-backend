@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.product.ProductMapper">
+
+    <resultMap id="productVO" type="io.xccit.zxyp.model.entity.product.Product" autoMapping="true"></resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        `id`,`name`,`brand_id`,`category1_id`,`category2_id`,`category3_id`,`unit_name`,`slider_urls`,
+        `spec_value`,`status`,`audit_status`,`audit_message`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+    <!--添加商品的基本信息,使用添加完基本信息之后的ID,供其他两个Mapper做添加-->
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into product (
+        id,
+        name,
+        brand_id,
+        category1_id,
+        category2_id,
+        category3_id,
+        unit_name,
+        slider_urls,
+        spec_value,
+        status,
+        audit_status,
+        audit_message
+        ) values (
+        #{id},
+        #{name},
+        #{brandId},
+        #{category1Id},
+        #{category2Id},
+        #{category3Id},
+        #{unitName},
+        #{sliderUrls},
+        #{specValue},
+        #{status},
+        #{auditStatus},
+        #{auditMessage}
+        )
+    </insert>
+
+    <!--分页列表条件查询-->
+    <select id="list" resultMap="productVO">
+        SELECT
+        p.id,p.name,p.brand_id,p.category1_id,p.category2_id,p.category3_id,p.unit_name,p.slider_urls,p.spec_value,p.status,
+        p.audit_status,p.audit_message,p.create_time,p.update_time,c1.name category1Name,c2.name category2Name,c3.name
+        category3Name,b.name brandName
+        FROM
+        product p
+        INNER JOIN brand b ON b.id = p.brand_id
+        INNER JOIN category c1 ON c1.id = p.category1_id
+        INNER JOIN category c2 ON c2.id = p.category2_id
+        INNER JOIN category c3 ON c3.id = p.category3_id
+        <where>
+            <if test="category1Id != null">
+                and p.category1_id = #{category1Id}
+            </if>
+            <if test="category2Id != null">
+                and p.category2_id = #{category2Id}
+            </if>
+            <if test="category3Id != null">
+                and p.category3_id = #{category3Id}
+            </if>
+            and p.is_deleted = 0
+        </where>
+    </select>
+</mapper>

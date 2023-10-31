@@ -2,6 +2,7 @@ package io.xccit.zxyp.service.product;
 
 import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.product.CategoryBrandDto;
+import io.xccit.zxyp.model.entity.product.Brand;
 import io.xccit.zxyp.model.entity.product.CategoryBrand;
 
 import java.util.List;
@@ -38,4 +39,11 @@ public interface ICategoryBrandService {
      * @param ids
      */
     void remove(List<Long> ids);
+
+    /**
+     * 根据分类ID查询品牌数据
+     * @param categoryId
+     * @return
+     */
+    List<Brand> listBrandByCategoryID(Long categoryId);
 }

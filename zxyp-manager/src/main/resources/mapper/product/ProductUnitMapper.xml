@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.product.ProductUnitMapper">
+
+    <resultMap id="productUnitVO" type="io.xccit.zxyp.model.entity.base.ProductUnit" autoMapping="true"></resultMap>
+    <sql id="columns">
+        `id`,`name`,`create_time`,`update_time`
+    </sql>
+    <!--商品单位列表-->
+    <select id="list" resultType="io.xccit.zxyp.model.entity.base.ProductUnit">
+        SELECT <include refid="columns"/>
+        FROM product_unit
+        <where>
+            is_deleted = 0
+        </where>
+    </select>
+</mapper>
