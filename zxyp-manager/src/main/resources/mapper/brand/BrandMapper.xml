@@ -3,5 +3,69 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.xccit.zxyp.mapper.product.BrandMapper">
-    <resultMap id="categoryVO" type="io.xccit.zxyp.model.entity.product.Brand" autoMapping="true"></resultMap>
+    <resultMap id="brandVO" type="io.xccit.zxyp.model.entity.product.Brand" autoMapping="true">
+    </resultMap>
+    <sql id="columns">
+        `id`,`name`,`logo`,`create_time`,`update_time`
+    </sql>
+    <!--品牌添加-->
+    <insert id="save">
+        insert into brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="logo != null and logo != ''">
+                logo,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="logo != null and logo != ''">
+                #{logo},
+            </if>
+        </trim>
+    </insert>
+    <!--品牌删除,根据ID列表-->
+    <update id="remove">
+        update brand
+        <set>
+            is_deleted = 1
+        </set>
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <!--品牌修改-->
+    <update id="update">
+        update brand
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="logo != null and logo != ''">
+                logo = #{logo},
+            </if>
+
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <!--品牌列表-->
+    <select id="list" resultType="io.xccit.zxyp.model.entity.product.Brand">
+        select
+        <include refid="columns"/>
+        from brand
+        <where>
+            is_deleted = 0
+        </where>
+    </select>
 </mapper>

@@ -33,6 +33,41 @@
             0)
         </foreach>
     </insert>
+    <!--根据ID删除-->
+    <update id="remove">
+        update category
+        <set>
+            is_deleted = 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <!--修改分类信息-->
+    <update id="update">
+        update category
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum},
+            </if>
+            update_time = CURRENT_TIMESTAMP,
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
     <!--查询第一层数据-->
     <select id="listCategoryByParentID" resultType="io.xccit.zxyp.model.entity.product.Category">
         select

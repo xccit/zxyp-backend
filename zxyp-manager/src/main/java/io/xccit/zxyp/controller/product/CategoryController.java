@@ -59,4 +59,18 @@ public class CategoryController {
         categoryService.importData(file);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
     }
+
+    @Operation(summary = "分类信息修改")
+    @PutMapping
+    public AjaxResult updateCategory(@RequestBody Category category){
+        categoryService.update(category);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "分类信息删除")
+    @DeleteMapping("/{id}")
+    public AjaxResult removeCategory(@PathVariable Long id){
+        categoryService.remove(id);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
 }

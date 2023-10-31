@@ -2,6 +2,7 @@ package io.xccit.zxyp.service.product.impl;
 
 import com.alibaba.excel.EasyExcel;
 import io.xccit.zxyp.exception.ExcelOperatorException;
+import io.xccit.zxyp.exception.HadChildrenException;
 import io.xccit.zxyp.listener.ExcelListener;
 import io.xccit.zxyp.mapper.product.CategoryMapper;
 import io.xccit.zxyp.model.entity.product.Category;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.Encoder;
@@ -97,6 +99,32 @@ public class CategoryServiceImpl implements ICategoryService {
         } catch (IOException e) {
             e.printStackTrace();
             throw new ExcelOperatorException(ResultCodeEnum.EXCEL_ERROR);
+        }
+    }
+
+    /**
+     * 分类信息修改
+     *
+     * @param category
+     */
+    @Override
+    public void update(Category category) {
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 分类信息删除
+     *
+     * @param id
+     */
+    @Override
+    public void remove(Long id) {
+        //TODO 根据ID获取其下是否有子节点
+        List<Category> categoryList = categoryMapper.listCategoryByParentID(id);
+        if (CollectionUtils.isEmpty(categoryList)){
+            categoryMapper.remove(id);
+        }else{
+            throw new HadChildrenException(ResultCodeEnum.MENU_ERROR);
         }
     }
 }

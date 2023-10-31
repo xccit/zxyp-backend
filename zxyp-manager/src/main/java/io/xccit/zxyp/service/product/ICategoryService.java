@@ -30,4 +30,16 @@ public interface ICategoryService {
      * @param file
      */
     void importData(MultipartFile file);
+
+    /**
+     * 分类信息修改
+     * @param category
+     */
+    void update(Category category);
+
+    /**
+     * 分类信息删除
+     * @param id
+     */
+    void remove(Long id);
 }

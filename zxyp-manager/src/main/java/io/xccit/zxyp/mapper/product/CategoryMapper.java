@@ -33,5 +33,22 @@ public interface CategoryMapper {
      */
     List<Category> list();
 
+    /**
+     * Excel批量添加
+     * @param cachedDataList
+     * @param <T>
+     */
     <T> void batchSave(List<T> cachedDataList);
+
+    /**
+     * 根据ID删除
+     * @param id
+     */
+    void remove(Long id);
+
+    /**
+     * 修改分类信息
+     * @param category
+     */
+    void update(Category category);
 }
