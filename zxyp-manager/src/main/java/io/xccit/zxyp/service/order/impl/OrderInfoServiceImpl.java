@@ -34,7 +34,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
     @Override
     public OrderStatisticsVo getOrderStatistics(OrderStatisticsDto orderStatisticsDto) {
         // 查询统计结果数据
-        List<OrderStatistics> orderStatisticsList = orderStatisticsMapper.list(orderStatisticsDto) ;
+        List<OrderStatistics> orderStatisticsList = orderStatisticsMapper.get(orderStatisticsDto) ;
         //日期列表
         List<String> dateList = orderStatisticsList.stream().
                 map(orderStatistics -> DateUtil.format(orderStatistics.getOrderDate(), "yyyy-MM-dd"))
