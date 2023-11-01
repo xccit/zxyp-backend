@@ -53,6 +53,18 @@ public class SwaggerConfig {
     }
 
     /**
+     * @return 订单接口
+     */
+    @Bean
+    public GroupedOpenApi orderApi(){
+        return GroupedOpenApi.builder()
+                .group("订单接口")
+                .pathsToMatch("/admin/order/**")
+                .pathsToExclude("/admin/system/index/**","/admin/system/upload/**")
+                .build();
+    }
+
+    /**
      * @return 商品接口
      */
     @Bean

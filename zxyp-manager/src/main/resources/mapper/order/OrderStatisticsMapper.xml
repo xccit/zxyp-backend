@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.xccit.zxyp.mapper.order.OrderStatisticsMapper">
+    <sql id="columns">
+        `id`,`province_code`,`order_date`,`total_amount`,`total_num`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+
+    <resultMap id="orderStatisticsVO" type="io.xccit.zxyp.model.entity.order.OrderStatistics"
+               autoMapping="true"></resultMap>
 
     <!--添加订单统计信息-->
     <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -11,4 +17,16 @@
         VALUES
         (#{id}, #{orderDate}, #{totalAmount}, #{totalNum})
     </insert>
+    <!--查询统计结果数据-->
+    <select id="get" resultMap="orderStatisticsVO">
+        SELECT
+            <include refid="columns"/>
+        FROM order_statistics
+        <where>
+            <if test="createTimeBegin != null and createTimeBegin != '' and createTimeEnd != null and createTimeEnd != ''">
+                order_date BETWEEN #{createTimeBegin} AND #{createTimeEnd}
+            </if>
+        </where>
+        ORDER BY order_date
+    </select>
 </mapper>

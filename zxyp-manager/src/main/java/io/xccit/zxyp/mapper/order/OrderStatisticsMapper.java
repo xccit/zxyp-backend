@@ -1,7 +1,10 @@
 package io.xccit.zxyp.mapper.order;
 
+import io.xccit.zxyp.model.dto.order.OrderStatisticsDto;
 import io.xccit.zxyp.model.entity.order.OrderStatistics;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author CH_ywx
@@ -15,4 +18,11 @@ public interface OrderStatisticsMapper {
      * @param orderStatistics
      */
     void save(OrderStatistics orderStatistics);
+
+    /**
+     * 查询统计结果数据
+     * @param orderStatisticsDto
+     * @return
+     */
+    List<OrderStatistics> get(OrderStatisticsDto orderStatisticsDto);
 }
