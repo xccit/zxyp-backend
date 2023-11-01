@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Schema(description = "OrderInfo")
+@Schema(description = "订单信息")
 public class OrderInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

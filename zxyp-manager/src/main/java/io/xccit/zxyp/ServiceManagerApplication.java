@@ -8,12 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author CH_ywx
  * @date 2023/10/11
  * @description 管理端启动类
  */
+@EnableScheduling //开启定时任务
 @EnableEncryptableProperties //开启数据源密码加密
 @MapperScan(basePackages = {"io.xccit.zxyp.**.mapper"})
 @ComponentScan(basePackages = {"io.xccit.zxyp.**"})
