@@ -34,9 +34,20 @@
         <if test="imageUrls != null and imageUrls != ''">
             image_urls = #{imageUrls},
         </if>
-        update_time = now()
+        update_time = CURRENT_TIMESTAMP
         <where>
             id = #{id}
+        </where>
+    </update>
+    <!--根据商品ID删除详情信息-->
+    <update id="removeByProductID">
+        update product_details
+        <set>
+            is_deleted = 1,
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            product_id = #{productId}
         </where>
     </update>
     <select id="getDetailsByProductID" resultType="io.xccit.zxyp.model.entity.product.ProductDetails">

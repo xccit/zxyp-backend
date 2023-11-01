@@ -45,7 +45,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginAuthInterceptor)
                 .excludePathPatterns(webAuthConfigProperties.getNoAuthUrls())
-                .excludePathPatterns("/doc.html", "swagger-ui.html", "/v3/api-docs/**", "/doc.html", "/webjars/**", "/swagger-resources", "/swagger-ui/**")
+                .excludePathPatterns("/doc.html", "swagger-ui.html", "/v3/api-docs/**", "/doc.html",
+                        "/webjars/**", "/swagger-resources", "/swagger-ui/**")
                 .addPathPatterns("/**");
     }
 

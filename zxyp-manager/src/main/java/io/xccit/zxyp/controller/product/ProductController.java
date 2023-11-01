@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.product;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xccit.zxyp.model.dto.product.ProductDto;
 import io.xccit.zxyp.model.entity.product.Product;
@@ -74,5 +75,44 @@ public class ProductController {
     public AjaxResult update(@RequestBody Product product){
         productService.update(product);
         return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 商品信息删除
+     * @param productId
+     * @return
+     */
+    @Operation(summary = "商品信息删除")
+    @DeleteMapping("/{productId}")
+    public AjaxResult remove(@Parameter(name = "productId",description = "商品ID",required = true)
+                                 @PathVariable Long productId){
+        productService.remove(productId);
+        return AjaxResult.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 商品审核
+     * @param id
+     * @param auditStatus
+     * @return
+     */
+    @Operation(summary = "商品审核")
+    @GetMapping("/audit/{id}/{auditStatus}")
+    public AjaxResult updateAuditStatus(@PathVariable Long id, @PathVariable Integer auditStatus) {
+        productService.audit(id, auditStatus);
+        return AjaxResult.build(null , ResultCodeEnum.SUCCESS) ;
+    }
+
+    /**
+     * 商品上下架
+     * @param id
+     * @param status
+     * @return
+     */
+    @Operation(summary = "商品上下架")
+    @GetMapping("/status/{id}/{status}")
+    public AjaxResult updateStatus(@PathVariable Long id, @PathVariable Integer status) {
+        productService.status(id, status);
+        return AjaxResult.build(null , ResultCodeEnum.SUCCESS) ;
     }
 }

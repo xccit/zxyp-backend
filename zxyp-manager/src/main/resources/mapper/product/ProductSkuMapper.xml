@@ -99,6 +99,17 @@
             id = #{id}
         </where>
     </update>
+    <!--根据商品ID删除Sku信息-->
+    <update id="removeByProductID">
+        update product_sku
+        <set>
+            is_deleted = 1,
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            product_id = #{productId}
+        </where>
+    </update>
     <!--根据商品ID查询sku信息并封装-->
     <select id="getSkuByProductID" resultMap="skuVO">
         select <include refid="columns"/>

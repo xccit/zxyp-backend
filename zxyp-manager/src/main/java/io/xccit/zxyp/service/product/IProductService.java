@@ -37,4 +37,24 @@ public interface IProductService {
      * @param product
      */
     void update(Product product);
+
+    /**
+     * 商品信息删除
+     * @param productId
+     */
+    void remove(Long productId);
+
+    /**
+     * 商品审核
+     * @param id
+     * @param auditStatus
+     */
+    void audit(Long id, Integer auditStatus);
+
+    /**
+     * 商品上下架
+     * @param id
+     * @param status
+     */
+    void status(Long id, Integer status);
 }

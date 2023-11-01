@@ -125,4 +125,57 @@ public class ProductServiceImpl implements IProductService {
         productDetails.setImageUrls(detailsImageUrls);
         productDetailsMapper.update(productDetails);
     }
+
+    /**
+     * 商品信息删除
+     *
+     * @param productId
+     */
+    @Override
+    public void remove(Long productId) {
+        //TODO 删除商品信息
+        productMapper.remove(productId);
+        //TODO 删除Sku信息
+        productSkuMapper.removeByProductID(productId);
+        //TODO 删除详情信息
+        productDetailsMapper.removeByProductID(productId);
+    }
+
+    /**
+     * 商品审核
+     *
+     * @param id
+     * @param auditStatus
+     */
+    @Override
+    public void audit(Long id, Integer auditStatus) {
+        Product product = new Product();
+        product.setId(id);
+        if(auditStatus == 1) {
+            product.setAuditStatus(1);
+            product.setAuditMessage("审批通过");
+        } else {
+            product.setAuditStatus(-1);
+            product.setAuditMessage("审批不通过");
+        }
+        productMapper.update(product);
+    }
+
+    /**
+     * 商品上下架
+     *
+     * @param id
+     * @param status
+     */
+    @Override
+    public void status(Long id, Integer status) {
+        Product product = new Product();
+        product.setId(id);
+        if(status == 1) {
+            product.setStatus(1);
+        } else {
+            product.setStatus(-1);
+        }
+        productMapper.update(product);
+    }
 }

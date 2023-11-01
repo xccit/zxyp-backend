@@ -31,4 +31,10 @@ public interface ProductSkuMapper {
      * @param productSku
      */
     void update(ProductSku productSku);
+
+    /**
+     * 根据商品ID删除Sku信息
+     * @param productId
+     */
+    void removeByProductID(Long productId);
 }

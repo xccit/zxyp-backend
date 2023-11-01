@@ -82,6 +82,17 @@
             id = #{id}
         </where>
     </update>
+    <!--productId-->
+    <update id="remove">
+        update product
+        <set>
+            is_deleted = 1,
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            id = #{productId}
+        </where>
+    </update>
 
     <!--分页列表条件查询-->
     <select id="list" resultMap="productVO">

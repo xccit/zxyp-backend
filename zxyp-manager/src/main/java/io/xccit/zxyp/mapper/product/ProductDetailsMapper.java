@@ -29,4 +29,10 @@ public interface ProductDetailsMapper {
      * @param productDetails
      */
     void update(ProductDetails productDetails);
+
+    /**
+     * 根据商品ID删除详情信息
+     * @param productId
+     */
+    void removeByProductID(Long productId);
 }

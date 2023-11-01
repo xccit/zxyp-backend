@@ -29,6 +29,8 @@ zxyp:
         - /admin/system/swagger
         - /doc.html
         - /swagger-ui.html
+        - /admin/system/druid
+        - /druid/*
 
 # 文件上传MINIO配置
 minio:
