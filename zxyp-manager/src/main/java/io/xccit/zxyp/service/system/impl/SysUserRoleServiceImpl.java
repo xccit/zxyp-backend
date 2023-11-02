@@ -6,6 +6,7 @@ import io.xccit.zxyp.service.system.ISysUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
      *
      * @param assignRoleDto
      */
+    @Transactional
     @Override
     public void assignRole(AssignRoleDto assignRoleDto) {
         Long userId = assignRoleDto.getUserId();

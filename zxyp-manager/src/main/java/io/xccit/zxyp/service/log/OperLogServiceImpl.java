@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author CH_ywx
  * @date 2023/11/2
@@ -27,5 +29,15 @@ public class OperLogServiceImpl implements IOperLogService {
     @Override
     public void saveOperLog(OperLog operLog) {
         operLogMapper.save(operLog);
+    }
+
+    /**
+     * 分页操作日志记录
+     *
+     * @return
+     */
+    @Override
+    public List<OperLog> listOperPage() {
+        return operLogMapper.list();
     }
 }

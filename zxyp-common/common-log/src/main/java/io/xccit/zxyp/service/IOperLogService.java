@@ -2,6 +2,8 @@ package io.xccit.zxyp.service;
 
 import io.xccit.zxyp.model.entity.system.OperLog;
 
+import java.util.List;
+
 /**
  * @author CH_ywx
  * @date 2023/11/2
@@ -13,4 +15,10 @@ public interface IOperLogService {
      * @param operLog
      */
     void saveOperLog(OperLog operLog);
+
+    /**
+     * 分页操作日志记录
+     * @return
+     */
+    List<OperLog> listOperPage();
 }

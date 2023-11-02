@@ -13,6 +13,7 @@ import io.xccit.zxyp.service.system.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -104,6 +105,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      *
      * @param assignMenuDto
      */
+    @Transactional
     @Override
     public void assignMenu(AssignMenuDto assignMenuDto) {
         List<Map<String, Number>> menuInfo = assignMenuDto.getMenuIdList();

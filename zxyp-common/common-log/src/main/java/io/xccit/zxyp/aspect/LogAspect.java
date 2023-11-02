@@ -1,7 +1,6 @@
 package io.xccit.zxyp.aspect;
 
 import io.xccit.zxyp.annotation.Log;
-import io.xccit.zxyp.enums.OperatorType;
 import io.xccit.zxyp.model.entity.system.OperLog;
 import io.xccit.zxyp.service.IOperLogService;
 import io.xccit.zxyp.utils.LogUtil;
@@ -42,7 +41,7 @@ public class LogAspect {
             LogUtil.afterHandlLog(sysLog,proceed,operLog,0,null);
         } catch (Throwable e) {
             //TODO 有异常
-            LogUtil.afterHandlLog(sysLog,proceed,operLog,1,e.getCause().getMessage());
+            LogUtil.afterHandlLog(sysLog,proceed,operLog,1,e.getMessage());
             throw new RuntimeException(e);
         }
         //TODO 保存日志

@@ -63,6 +63,17 @@ public class SwaggerConfig {
                 .pathsToExclude("/admin/system/index/**","/admin/system/upload/**")
                 .build();
     }
+    /**
+     * @return 操作日志接口
+     */
+    @Bean
+    public GroupedOpenApi operLogApi(){
+        return GroupedOpenApi.builder()
+                .group("操作日志接口")
+                .pathsToMatch("/admin/log/oper/**")
+                .pathsToExclude("/admin/system/index/**","/admin/system/upload/**")
+                .build();
+    }
 
     /**
      * @return 商品接口
