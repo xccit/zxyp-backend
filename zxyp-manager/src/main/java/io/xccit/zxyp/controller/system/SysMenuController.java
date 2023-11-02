@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.system;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.entity.system.SysMenu;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
@@ -28,6 +29,7 @@ public class SysMenuController {
      * 菜单树状接口
      * @return
      */
+    @Log(title = "菜单接口:菜单树状接口",businessType = 4)
     @Operation(summary = "菜单树状接口")
     @GetMapping("/nodes")
     public AjaxResult listMenuNodes(){
@@ -40,6 +42,7 @@ public class SysMenuController {
      * @param menuId
      * @return
      */
+    @Log(title = "菜单接口:菜单删除",businessType = 2)
     @Operation(summary = "菜单删除",description = "先根据ID查询此菜单下是否包含子菜单,如果有,抛出异常,没有则直接删除")
     @DeleteMapping("/{menuId}")
     public AjaxResult removeMenu(@PathVariable Long menuId){
@@ -52,6 +55,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return
      */
+    @Log(title = "菜单接口:菜单更新",businessType = 3)
     @Operation(summary = "菜单更新")
     @PutMapping
     public AjaxResult updateMenu(@RequestBody SysMenu sysMenu){
@@ -64,6 +68,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return
      */
+    @Log(title = "菜单接口:菜单添加",businessType = 1)
     @Operation(summary = "菜单添加")
     @PostMapping
     public AjaxResult saveMenu(@RequestBody SysMenu sysMenu){

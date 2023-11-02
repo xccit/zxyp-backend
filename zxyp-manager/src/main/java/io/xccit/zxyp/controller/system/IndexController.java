@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.system;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.dto.system.LoginDto;
 import io.xccit.zxyp.model.vo.system.SysMenuVo;
 import io.xccit.zxyp.service.system.ISysUserService;
@@ -36,6 +37,7 @@ public class IndexController {
      * @param loginDto 登录参数
      * @return 登录结果
      */
+    @Log(title = "后台首页:管理员登录",businessType = 0)
     @Operation(summary = "用户/管理员登录")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginDto loginDto){
@@ -51,6 +53,7 @@ public class IndexController {
      * 验证码获取接口
      * @return 验证码信息
      */
+    @Log(title = "后台首页:验证码获取",businessType = 0)
     @Operation(summary = "验证码获取接口")
     @GetMapping("/generateValidateCode")
     public AjaxResult<ValidateCodeVo> getValidateCode(){
@@ -63,12 +66,19 @@ public class IndexController {
      * 获取用户信息
      * @return
      */
+    @Log(title = "后台首页:获取用户信息",businessType = 0)
     @Operation(summary = "获取用户信息")
     @GetMapping("/userinfo")
     public AjaxResult userInfo(){
         return AjaxResult.build(AuthContextUtil.getObj(),ResultCodeEnum.SUCCESS);
     }
 
+    /**
+     * 用户登出
+     * @param token
+     * @return
+     */
+    @Log(title = "后台首页:用户登出",businessType = 0)
     @Operation(summary = "用户登出")
     @GetMapping("/logout")
     public AjaxResult logout(@RequestHeader(name = "token") String token){
@@ -80,6 +90,7 @@ public class IndexController {
      * 用户登录后根据用户ID获取角色信息,根据角色信息获取菜单列表并封装返回
      * @return
      */
+    @Log(title = "后台首页:用户动态菜单获取",businessType = 0)
     @Operation(summary = "用户动态菜单接口",description = "用户登录后根据用户ID获取角色信息,根据角色信息获取菜单列表并封装返回")
     @GetMapping("/menus")
     public AjaxResult getMenus(){

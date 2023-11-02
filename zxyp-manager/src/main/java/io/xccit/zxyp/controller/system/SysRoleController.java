@@ -3,6 +3,7 @@ package io.xccit.zxyp.controller.system;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.dto.system.AssignMenuDto;
 import io.xccit.zxyp.model.dto.system.SysRoleDto;
 import io.xccit.zxyp.model.entity.system.SysRole;
@@ -33,6 +34,7 @@ public class SysRoleController {
      * 根据用户ID查询所有角色/分配角色用
      * @return
      */
+    @Log(title = "角色接口:查询所有角色",businessType = 4)
     @Operation(summary = "查询所有角色",description = "根据用户ID查询所有角色/分配角色用")
     @GetMapping("/{userId}")
     public AjaxResult list(@PathVariable Long userId){
@@ -47,6 +49,7 @@ public class SysRoleController {
      * @param sysRoleDto 角色条件查询参数接收
      * @return
      */
+    @Log(title = "角色接口:分页条件查询",businessType = 4)
     @Operation(summary = "分页条件查询")
     @GetMapping("/{current}/{pageSize}")
     public AjaxResult listRolePage(@PathVariable Integer current,
@@ -61,6 +64,7 @@ public class SysRoleController {
      * @param sysRole
      * @return
      */
+    @Log(title = "角色接口:添加角色",businessType = 1)
     @Operation(summary = "添加角色")
     @PostMapping
     public AjaxResult saveRole(@RequestBody SysRole sysRole){
@@ -73,6 +77,7 @@ public class SysRoleController {
      * @param roleIds
      * @return
      */
+    @Log(title = "角色接口:删除角色",businessType = 2)
     @Operation(summary = "根据ID删除/批量删除")
     @DeleteMapping()
     public AjaxResult removeRoleById(@RequestBody List<Long> roleIds){
@@ -85,6 +90,7 @@ public class SysRoleController {
      * @param sysRole
      * @return
      */
+    @Log(title = "角色接口:修改角色",businessType = 3)
     @Operation(summary = "修改角色")
     @PutMapping
     public AjaxResult updateRole(@RequestBody SysRole sysRole){
@@ -98,6 +104,7 @@ public class SysRoleController {
      * @param assignMenuDto
      * @return
      */
+    @Log(title = "角色接口:角色分配菜单",businessType = 0)
     @Operation(summary = "角色分配菜单")
     @PostMapping("/assign")
     public AjaxResult assignMenu(@RequestBody AssignMenuDto assignMenuDto){

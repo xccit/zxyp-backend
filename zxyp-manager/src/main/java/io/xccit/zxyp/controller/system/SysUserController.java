@@ -3,6 +3,7 @@ package io.xccit.zxyp.controller.system;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.dto.system.AssignRoleDto;
 import io.xccit.zxyp.model.dto.system.SysUserDto;
 import io.xccit.zxyp.model.entity.system.SysUser;
@@ -40,6 +41,7 @@ public class SysUserController {
      * @param sysUserDto
      * @return
      */
+    @Log(title = "后台用户接口:用户分页列表",businessType = 4)
     @Operation(summary = "用户分页列表",description = "用户分页接口,亦可根据条件查询")
     @GetMapping("/{current}/{pageSize}")
     public AjaxResult listUserPage(@PathVariable Integer current,
@@ -49,6 +51,12 @@ public class SysUserController {
         return AjaxResult.build(userPageInfo, ResultCodeEnum.SUCCESS);
     }
 
+    /**
+     * 用户添加
+     * @param sysUser
+     * @return
+     */
+    @Log(title = "后台用户接口:用户添加",businessType = 1)
     @Operation(summary = "用户添加",description = "用户添加")
     @PostMapping
     public AjaxResult saveUser(@RequestBody SysUser sysUser){
@@ -61,6 +69,7 @@ public class SysUserController {
      * @param userIds
      * @return
      */
+    @Log(title = "后台用户接口:用户删除",businessType = 2)
     @Operation(summary = "用户删除/批量删除",description = "根据用户集合列表单删或批量删除")
     @DeleteMapping("/{userIds}")
     public AjaxResult removeUser(@PathVariable List<Long> userIds){
@@ -73,6 +82,7 @@ public class SysUserController {
      * @param sysUser
      * @return
      */
+    @Log(title = "后台用户接口:用户修改",businessType = 3)
     @Operation(summary = "用户修改",description = "用户修改")
     @PutMapping
     public AjaxResult updateUser(@RequestBody SysUser sysUser){
@@ -85,6 +95,7 @@ public class SysUserController {
      * @param assignRoleDto
      * @return
      */
+    @Log(title = "后台用户接口:用户角色分配",businessType = 0)
     @Operation(summary = "用户角色分配",description = "用户角色分配")
     @PostMapping("/assign")
     public AjaxResult assignRole(@RequestBody AssignRoleDto assignRoleDto){

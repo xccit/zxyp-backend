@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.system;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.service.system.IFileUploadService;
@@ -29,6 +30,7 @@ public class FileUploadController {
      * @param file
      * @return
      */
+    @Log(title = "通用接口:文件上传",businessType = 1)
     @Operation(summary = "文件上传")
     @PostMapping("/upload")
     public AjaxResult upload(MultipartFile file){

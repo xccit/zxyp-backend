@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.order;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.dto.order.OrderStatisticsDto;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
@@ -25,6 +26,7 @@ public class OrderInfoController {
     @Autowired
     private IOrderInfoService orderInfoService;
 
+    @Log(title = "订单管理:获取订单统计数据",businessType = 4)
     @Operation(summary = "获取订单统计数据")
     @GetMapping("/getOrderStatistics")
     public AjaxResult<OrderStatisticsVo> getOrderStatisticsData(OrderStatisticsDto orderStatisticsDto) {

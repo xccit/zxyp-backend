@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.product;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.entity.base.ProductUnit;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
@@ -30,6 +31,7 @@ public class ProductUnitController {
      * 商品单位列表
      * @return
      */
+    @Log(title = "商品单位管理:商品单位列表",businessType = 4)
     @Operation(summary = "商品单位列表")
     @GetMapping
     public AjaxResult list(){

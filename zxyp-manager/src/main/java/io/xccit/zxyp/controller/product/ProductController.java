@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.dto.product.ProductDto;
 import io.xccit.zxyp.model.entity.product.Product;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
@@ -30,6 +31,7 @@ public class ProductController {
      * @param productId
      * @return
      */
+    @Log(title = "商品管理:根据商品ID获取商品信息",businessType = 4)
     @Operation(summary = "根据商品ID获取商品信息")
     @GetMapping("/{productId}")
     public AjaxResult getOne(@PathVariable Long productId){
@@ -44,6 +46,7 @@ public class ProductController {
      * @param productDto 商品搜索条件
      * @return
      */
+    @Log(title = "商品管理:商品分页条件列表",businessType = 4)
     @Operation(summary = "商品分页条件列表",description = "根据条件查询,条件可为空")
     @GetMapping("/{current}/{pageSize}")
     public AjaxResult listProductPage(@PathVariable Integer current,
@@ -58,6 +61,7 @@ public class ProductController {
      * @param product
      * @return
      */
+    @Log(title = "商品管理:商品信息添加",businessType = 1)
     @Operation(summary = "商品信息添加")
     @PostMapping
     public AjaxResult save(@RequestBody Product product){
@@ -70,6 +74,7 @@ public class ProductController {
      * @param product
      * @return
      */
+    @Log(title = "商品管理:商品信息修改",businessType = 3)
     @Operation(summary = "商品信息修改")
     @PutMapping
     public AjaxResult update(@RequestBody Product product){
@@ -82,6 +87,7 @@ public class ProductController {
      * @param productId
      * @return
      */
+    @Log(title = "商品管理:商品信息删除",businessType = 2)
     @Operation(summary = "商品信息删除")
     @DeleteMapping("/{productId}")
     public AjaxResult remove(@Parameter(name = "productId",description = "商品ID",required = true)
@@ -96,6 +102,7 @@ public class ProductController {
      * @param auditStatus
      * @return
      */
+    @Log(title = "商品管理:商品审核",businessType = 0)
     @Operation(summary = "商品审核")
     @GetMapping("/audit/{id}/{auditStatus}")
     public AjaxResult updateAuditStatus(@PathVariable Long id, @PathVariable Integer auditStatus) {
@@ -109,6 +116,7 @@ public class ProductController {
      * @param status
      * @return
      */
+    @Log(title = "商品管理:商品上下架",businessType = 0)
     @Operation(summary = "商品上下架")
     @GetMapping("/status/{id}/{status}")
     public AjaxResult updateStatus(@PathVariable Long id, @PathVariable Integer status) {

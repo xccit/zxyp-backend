@@ -4,9 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.xccit.zxyp.model.entity.base.BaseEntity;
 import lombok.Data;
 
+/**
+ * 系统操作日志
+ */
 @Data
-@Schema(description = "SysOperLog")
-public class SysOperLog extends BaseEntity {
+@Schema(description = "OperLog")
+public class OperLog extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,7 @@ package io.xccit.zxyp.controller.system;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.xccit.zxyp.annotation.Log;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.service.system.ISysRoleMenuService;
@@ -31,6 +32,7 @@ public class SysRoleMenuController {
      * @param roleId
      * @return
      */
+    @Log(title = "角色菜单接口:获取菜单列表",businessType = 4)
     @Operation(summary = "获取菜单列表",description = "获取所有菜单,根据角色ID获取已分配菜单")
     @GetMapping("/{roleId}")
     public AjaxResult listAll(@PathVariable Long roleId){
