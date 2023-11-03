@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.ProductSkuMapper">
+
+    <resultMap id="productSkuVO" type="io.xccit.zxyp.model.entity.product.ProductSku" autoMapping="true">
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,sku_code,sku_name,product_id,thumb_img,sale_price,market_price,cost_price,stock_num,sale_num,sku_spec,weight,volume,status,create_time,update_time,is_deleted
+    </sql>
+
+    <!--首页商品Sku销量前10-->
+    <select id="listProductSkuBySale" resultMap="productSkuVO">
+        SELECT
+            sku.id,sku.sku_code,sku.sku_name,sku.product_id,sku.thumb_img,sku.sale_price,sku.market_price,sku.cost_price,
+            sku.stock_num,sku.sale_num,sku.sku_spec,sku.weight,sku.volume,sku.status,sku.create_time,sku.update_time
+        FROM product_sku sku
+        LEFT JOIN product p ON p.id = sku.product_id
+        <where>
+            p.status = 1
+            and p.audit_status = 1
+            and sku.is_deleted = 0
+            and p.is_deleted = 0
+        </where>
+        ORDER BY sku.sale_num desc
+        LIMIT 10
+    </select>
+</mapper>

@@ -86,6 +86,18 @@ public class SwaggerConfig {
                 .build();
     }
 
+    /**
+     * @return 前台首页接口
+     */
+    @Bean
+    public GroupedOpenApi frontIndexApi(){
+        return GroupedOpenApi.builder()
+                .group("前台首页接口")
+                .pathsToMatch("/api/product/index")
+                .build();
+    }
+
+
 
     /**
      * @return 文档信息
