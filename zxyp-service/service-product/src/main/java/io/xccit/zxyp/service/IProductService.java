@@ -1,5 +1,7 @@
 package io.xccit.zxyp.service;
 
+import com.github.pagehelper.PageInfo;
+import io.xccit.zxyp.model.dto.h5.ProductSkuDto;
 import io.xccit.zxyp.model.entity.product.ProductSku;
 
 import java.util.List;
@@ -16,4 +18,13 @@ public interface IProductService {
      * @return
      */
     List<ProductSku> listProductSkuBySale();
+
+    /**
+     * 商品分页条件查询
+     * @param page
+     * @param limit
+     * @param productSkuDto
+     * @return
+     */
+    PageInfo<ProductSku> listProductPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
 }
