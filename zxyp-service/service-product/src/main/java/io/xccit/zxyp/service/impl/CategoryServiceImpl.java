@@ -7,6 +7,7 @@ import io.xccit.zxyp.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -55,6 +56,7 @@ public class CategoryServiceImpl implements ICategoryService {
      *
      * @return
      */
+    @Cacheable(value = "category",key = "'list'")
     @Override
     public List<Category> findCategoryTree() {
         List<Category> categoryList = categoryMapper.list();
