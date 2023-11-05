@@ -1,6 +1,5 @@
 package io.xccit.zxyp.config;
 
-import com.github.xiaoymin.knife4j.core.model.OpenAPIInfo;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -87,17 +86,15 @@ public class SwaggerConfig {
     }
 
     /**
-     * @return 前台首页接口
+     * @return 前台商品相关接口
      */
     @Bean
-    public GroupedOpenApi frontIndexApi(){
+    public GroupedOpenApi frontProductApi(){
         return GroupedOpenApi.builder()
-                .group("前台首页接口")
-                .pathsToMatch("/api/product/index")
+                .group("前台商品相关接口")
+                .pathsToMatch("/api/product/**")
                 .build();
     }
-
-
 
     /**
      * @return 文档信息
