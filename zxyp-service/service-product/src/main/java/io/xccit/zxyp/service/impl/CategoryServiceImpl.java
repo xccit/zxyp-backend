@@ -1,14 +1,18 @@
 package io.xccit.zxyp.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import io.xccit.zxyp.mapper.CategoryMapper;
 import io.xccit.zxyp.model.entity.product.Category;
 import io.xccit.zxyp.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +26,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     /**
      * 首页一级分类
@@ -30,7 +36,18 @@ public class CategoryServiceImpl implements ICategoryService {
      */
     @Override
     public List<Category> listOneCategory() {
-        return categoryMapper.listOneCategory();
+        //TODO Redis中查
+        String categoryListJSON = redisTemplate.opsForValue().get("category:one");
+        if (StringUtils.hasText(categoryListJSON)){
+            log.info("[listOneCategory]:Redis中的一级分类:"+categoryListJSON);
+            List<Category> categoryList = JSON.parseArray(categoryListJSON, Category.class);
+            return categoryList;
+        }
+        //TODO 数据库中查
+        List<Category> categoryList = categoryMapper.listOneCategory();
+        log.info("[listOneCategory]:从MySQL查询到的一级分类");
+        redisTemplate.opsForValue().set("category:one",JSON.toJSONString(categoryList),7, TimeUnit.DAYS);
+        return categoryList;
     }
 
     /**
