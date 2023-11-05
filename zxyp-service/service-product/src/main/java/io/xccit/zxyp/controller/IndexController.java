@@ -22,7 +22,6 @@ import java.util.List;
  * @date 2023/11/2
  * @description
  */
-@CrossOrigin
 @Tag(name = "前台首页接口")
 @RestController
 @RequestMapping("/api/product/index")

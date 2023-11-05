@@ -18,4 +18,10 @@ public interface CategoryMapper {
      * @return
      */
     List<Category> listOneCategory();
+
+    /**
+     * 所有分类
+     * @return
+     */
+    List<Category> list();
 }

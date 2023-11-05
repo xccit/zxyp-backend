@@ -15,4 +15,10 @@ public interface ICategoryService {
      * @return
      */
     List<Category> listOneCategory();
+
+    /**
+     * 获取分类树形数据
+     * @return
+     */
+    List<Category> findCategoryTree();
 }
