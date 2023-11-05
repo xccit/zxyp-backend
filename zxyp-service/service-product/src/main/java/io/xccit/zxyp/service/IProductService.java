@@ -3,6 +3,7 @@ package io.xccit.zxyp.service;
 import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.h5.ProductSkuDto;
 import io.xccit.zxyp.model.entity.product.ProductSku;
+import io.xccit.zxyp.model.vo.h5.ProductItemVo;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface IProductService {
      * @return
      */
     PageInfo<ProductSku> listProductPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
+
+    /**
+     * 商品详情
+     * @param skuId
+     * @return
+     */
+    ProductItemVo details(Long skuId);
 }

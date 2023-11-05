@@ -26,4 +26,18 @@ public interface ProductSkuMapper {
      * @return
      */
     List<ProductSku> listProductPage(ProductSkuDto productSkuDto);
+
+    /**
+     * 获取当前Sku信息
+     * @param skuId
+     * @return
+     */
+    ProductSku getOneByID(Long skuId);
+
+    /**
+     * 根据商品ID获取Sku列表
+     * @param productId
+     * @return
+     */
+    List<ProductSku> listSkuByProductID(Long productId);
 }

@@ -65,4 +65,19 @@
             order by sku.sale_price desc
         </if>
     </select>
+    <!--获取当前Sku信息-->
+    <select id="getOneByID" resultMap="productSkuVO">
+        SELECT <include refid="columns" />
+        FROM product_sku
+        WHERE
+        id = #{skuId}
+    </select>
+    <!--根据商品ID获取Sku列表-->
+    <select id="listSkuByProductID" resultMap="productSkuVO">
+        SELECT <include refid="columns" />
+        FROM product_sku
+        <where>
+            product_id = #{productId}
+        </where>
+    </select>
 </mapper>

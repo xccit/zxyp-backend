@@ -4,4 +4,18 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.xccit.zxyp.mapper.ProductMapper">
 
+    <resultMap id="productVO" type="io.xccit.zxyp.model.entity.product.Product" autoMapping="true">
+    </resultMap>
+
+    <sql id="columns">
+        id,name,brand_id,category1_id,category2_id,category3_id,unit_name,slider_urls,spec_value,status,audit_status,audit_message,create_time,update_time,is_deleted
+    </sql>
+    <!--根据商品ID获取商品信息-->
+    <select id="getOneByProductID" resultMap="productVO">
+        SELECT <include refid="columns" />
+        FROM product
+        <where>
+            id = #{productId}
+        </where>
+    </select>
 </mapper>

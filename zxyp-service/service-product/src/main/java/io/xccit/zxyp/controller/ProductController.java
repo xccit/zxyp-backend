@@ -8,6 +8,7 @@ import io.xccit.zxyp.model.dto.h5.ProductSkuDto;
 import io.xccit.zxyp.model.entity.product.ProductSku;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.h5.ProductItemVo;
 import io.xccit.zxyp.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,5 +43,17 @@ public class ProductController {
                                                        @Parameter(name = "productSkuDto", description = "搜索条件对象", required = false) ProductSkuDto productSkuDto) {
         PageInfo<ProductSku> pageInfo = productService.listProductPage(page, limit, productSkuDto);
         return AjaxResult.build(pageInfo , ResultCodeEnum.SUCCESS) ;
+    }
+
+    /**
+     * 商品详情
+     * @param skuId
+     * @return
+     */
+    @Operation(summary = "商品详情")
+    @GetMapping("/item/{skuId}")
+    public AjaxResult<ProductItemVo> details(@PathVariable Long skuId){
+        ProductItemVo productItemVo = productService.details(skuId);
+        return AjaxResult.build(productItemVo , ResultCodeEnum.SUCCESS);
     }
 }
