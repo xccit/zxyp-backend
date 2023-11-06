@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -93,6 +94,17 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("前台商品相关接口")
                 .pathsToMatch("/api/product/**")
+                .build();
+    }
+
+    /**
+     * @return 前台用户相关接口
+     */
+    @Bean
+    public GroupedOpenApi frontUserApi(){
+        return GroupedOpenApi.builder()
+                .group("前台用户相关接口")
+                .pathsToMatch("/api/user/**")
                 .build();
     }
 

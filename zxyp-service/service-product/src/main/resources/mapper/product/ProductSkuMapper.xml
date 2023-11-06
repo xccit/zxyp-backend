@@ -53,6 +53,7 @@
             and p.status = 1
             and p.audit_status = 1
             and sku.is_deleted = 0
+            and sku.stock_num > 0
             and p.is_deleted = 0
         </where>
         <if test="order == 1">

@@ -14,6 +14,8 @@ public enum ResultCodeEnum {
     USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
     SYSTEM_ERROR(9999 , "系统异常,请稍后重试"),
     MENU_ERROR( 217, "该菜单下有子菜单，不可以删除"),
+    SMS_ERROR( 218, "短信操作异常,请联系网站管理员"),
+    SMS_CODE_ERROR( 219, "验证码错误"),
     DATA_ERROR(204, "数据异常"),
     EXCEL_ERROR(205, "Excel操作异常"),
     ACCOUNT_STOP( 216, "账号已停用"),

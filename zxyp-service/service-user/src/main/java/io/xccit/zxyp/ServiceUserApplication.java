@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author CH_ywx
- * @date 2023/11/2
+ * @date 2023/11/6
  * @description
  */
 @ComponentScan(basePackages = {"io.xccit.zxyp.**"})
@@ -17,11 +17,11 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEncryptableProperties //开启数据源密码加密
 @MapperScan(basePackages = {"io.xccit.zxyp.mapper"})
 @SpringBootApplication
-public class ServiceProductApplication {
+public class ServiceUserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceProductApplication.class,args);
-        System.out.println("❤甄选优品前台商品模块启动成功\n" +
+        SpringApplication.run(ServiceUserApplication.class,args);
+        System.out.println("❤甄选优品前台用户服务启动成功\n" +
                 "/*\n" +
                 " *                        _oo0oo_\n" +
                 " *                       o8888888o\n" +
