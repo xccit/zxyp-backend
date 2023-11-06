@@ -1,6 +1,7 @@
 package io.xccit.zxyp;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import io.xccit.zxyp.anno.EnableUserWebMvcConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023/11/6
  * @description
  */
-@ComponentScan(basePackages = {"io.xccit.zxyp.**"})
+@EnableUserWebMvcConfiguration //开启前台拦截器
 @EnableCaching
 @EnableEncryptableProperties //开启数据源密码加密
 @MapperScan(basePackages = {"io.xccit.zxyp.mapper"})

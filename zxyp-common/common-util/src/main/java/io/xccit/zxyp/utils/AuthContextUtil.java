@@ -1,6 +1,7 @@
 package io.xccit.zxyp.utils;
 
 import io.xccit.zxyp.model.entity.system.SysUser;
+import io.xccit.zxyp.model.entity.user.UserInfo;
 
 /**
  * @author CH_ywx
@@ -11,7 +12,33 @@ import io.xccit.zxyp.model.entity.system.SysUser;
  */
 public class AuthContextUtil {
 
+    //后台
     private static  ThreadLocal<SysUser> threadLocal = new ThreadLocal<>();
+    //前台
+    private static final ThreadLocal<UserInfo> userInfoThreadLocal = new ThreadLocal<>() ;
+
+    /**
+     * 设置前台登录用户
+     * @param userInfo
+     */
+    public static void setUserInfo(UserInfo userInfo) {
+        userInfoThreadLocal.set(userInfo);
+    }
+
+    /**
+     * 获取前台登录用户
+     * @return
+     */
+    public static UserInfo getUserInfo() {
+        return userInfoThreadLocal.get() ;
+    }
+
+    /**
+     * 删除前台登录用户
+     */
+    public static void removeUserInfo() {
+        userInfoThreadLocal.remove();
+    }
 
     /**
      * 设置登录的用户

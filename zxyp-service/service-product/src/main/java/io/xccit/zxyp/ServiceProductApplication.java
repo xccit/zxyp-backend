@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023/11/2
  * @description
  */
-@ComponentScan(basePackages = {"io.xccit.zxyp.**"})
 @EnableCaching
 @EnableEncryptableProperties //开启数据源密码加密
 @MapperScan(basePackages = {"io.xccit.zxyp.mapper"})
