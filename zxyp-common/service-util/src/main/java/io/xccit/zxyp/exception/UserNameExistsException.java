@@ -16,6 +16,8 @@ public class UserNameExistsException extends RuntimeException{
 
     public UserNameExistsException(ResultCodeEnum resultCodeEnum){
         this.resultCodeEnum = resultCodeEnum;
+        this.code = resultCodeEnum.getCode();
+        this.message = resultCodeEnum.getMessage();
     }
 
     public UserNameExistsException(Integer code,String message){

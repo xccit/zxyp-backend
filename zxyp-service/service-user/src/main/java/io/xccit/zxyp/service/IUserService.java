@@ -1,6 +1,8 @@
 package io.xccit.zxyp.service;
 
+import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
+import io.xccit.zxyp.model.entity.user.UserInfo;
 
 /**
  * @author CH_ywx
@@ -14,4 +16,18 @@ public interface IUserService {
      * @param userRegisterDto
      */
     void register(UserRegisterDto userRegisterDto);
+
+    /**
+     * 用户登录
+     * @param userLoginDto
+     * @return
+     */
+    String login(UserLoginDto userLoginDto);
+
+    /**
+     * 获取当前登录用户信息
+     * @param token
+     * @return
+     */
+    UserInfo getCurrentUser(String token);
 }

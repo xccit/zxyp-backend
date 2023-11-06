@@ -1,19 +1,28 @@
 package io.xccit.zxyp.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import io.xccit.zxyp.constants.RedisPrefixConstant;
+import io.xccit.zxyp.exception.PasswordWrongException;
 import io.xccit.zxyp.exception.SmsException;
+import io.xccit.zxyp.exception.UserNoAuthException;
 import io.xccit.zxyp.exception.UserNotExistsException;
 import io.xccit.zxyp.mapper.UserInfoMapper;
+import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.service.IUserService;
+import io.xccit.zxyp.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author CH_ywx
@@ -53,7 +62,7 @@ public class UserServiceImpl implements IUserService {
 
         //TODO 校验验证码
         String codeValueRedis = redisTemplate.opsForValue().get(username);
-        log.info("Redis中的验证码:"+codeValueRedis);
+        log.info("Redis中的验证码:" + codeValueRedis);
         if (!code.equals(codeValueRedis)) {
             throw new SmsException(ResultCodeEnum.SMS_CODE_ERROR);
         }
@@ -76,5 +85,62 @@ public class UserServiceImpl implements IUserService {
         userInfoMapper.save(userInfo);
         //TODO 删除Redis中的数据
         redisTemplate.delete(username);
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param userLoginDto
+     * @return
+     */
+    @Override
+    public String login(UserLoginDto userLoginDto) {
+        String username = userLoginDto.getUsername();
+        String password = userLoginDto.getPassword();
+
+        //TODO 校验参数
+        if (StringUtils.isEmpty(username) ||
+                StringUtils.isEmpty(password)) {
+            throw new UserNotExistsException(ResultCodeEnum.LOGIN_ERROR);
+        }
+
+        UserInfo userInfo = userInfoMapper.getUserByUserName(username);
+        if (null == userInfo) {
+            throw new UserNotExistsException(ResultCodeEnum.LOGIN_ERROR);
+        }
+
+        //TODO 校验密码
+        String md5InputPassword = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (!md5InputPassword.equals(userInfo.getPassword())) {
+            throw new PasswordWrongException(ResultCodeEnum.LOGIN_ERROR);
+        }
+
+        //TODO 校验是否被禁用
+        if (userInfo.getStatus() == 0) {
+            throw new UserNotExistsException(ResultCodeEnum.ACCOUNT_STOP);
+        }
+
+        String token = JWTUtils.createToken(userInfo.getId(), userInfo.getUsername());
+        redisTemplate.opsForValue().set(RedisPrefixConstant.FRONT_USER_PREFIX + token, JSON.toJSONString(userInfo), 7, TimeUnit.DAYS);
+        return token;
+    }
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @param token
+     * @return
+     */
+    @Override
+    public UserInfo getCurrentUser(String token) {
+        String userInfoJson = redisTemplate.opsForValue().get(RedisPrefixConstant.FRONT_USER_PREFIX + token);
+        if (!StringUtils.hasText(userInfoJson)){
+            throw new UserNoAuthException(ResultCodeEnum.LOGIN_AUTH);
+        }
+        UserInfo userInfo = JSON.parseObject(userInfoJson, UserInfo.class);
+        UserInfo result = new UserInfo();
+        //TODO 属性拷贝
+        BeanUtils.copyProperties(userInfo,result);
+        return result;
     }
 }

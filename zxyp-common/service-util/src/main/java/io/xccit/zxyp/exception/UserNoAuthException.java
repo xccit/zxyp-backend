@@ -5,23 +5,23 @@ import lombok.Data;
 
 /**
  * @author CH_ywx
- * @date 2023/10/30
- * @description Excel操作异常
+ * @date 2023/11/06
+ * @description 前台用户未登录异常
  */
 @Data
-public class ExcelOperatorException extends RuntimeException {
+public class UserNoAuthException extends RuntimeException {
 
     private Integer code;
     private String message;
     private ResultCodeEnum resultCodeEnum;
 
-    public ExcelOperatorException(ResultCodeEnum resultCodeEnum) {
+    public UserNoAuthException(ResultCodeEnum resultCodeEnum) {
         this.resultCodeEnum = resultCodeEnum;
         this.code = resultCodeEnum.getCode();
         this.message = resultCodeEnum.getMessage();
     }
 
-    public ExcelOperatorException(Integer code, String message) {
+    public UserNoAuthException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

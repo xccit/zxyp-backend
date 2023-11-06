@@ -17,6 +17,8 @@ public class SmsException extends RuntimeException {
 
     public SmsException(ResultCodeEnum resultCodeEnum) {
         this.resultCodeEnum = resultCodeEnum;
+        this.code = resultCodeEnum.getCode();
+        this.message = resultCodeEnum.getMessage();
     }
 
     public SmsException(Integer code, String message) {
