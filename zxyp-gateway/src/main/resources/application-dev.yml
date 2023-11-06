@@ -24,11 +24,18 @@ spring:
             # 跨域检测的有效期,单位s
             maxAge: 36000
       routes:
+        # 商品
         - id: service-product
           uri: lb://service-product
           predicates:
             - Path=/*/product/**
+        # 用户
         - id: service-user
           uri: lb://service-user
           predicates:
             - Path=/*/user/**
+        # 购物车
+        - id: service-cart
+          uri: lb://service-cart
+          predicates:
+            - Path=/api/order/cart/**

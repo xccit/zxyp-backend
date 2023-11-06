@@ -35,4 +35,11 @@ public interface IProductService {
      * @return
      */
     ProductItemVo details(Long skuId);
+
+    /**
+     * 根据SkuID获取商品Sku信息,供购物车远程调用接口
+     * @param skuId
+     * @return
+     */
+    ProductSku getProductSkuByID(Long skuId);
 }

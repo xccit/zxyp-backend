@@ -56,4 +56,16 @@ public class ProductController {
         ProductItemVo productItemVo = productService.details(skuId);
         return AjaxResult.build(productItemVo , ResultCodeEnum.SUCCESS);
     }
+
+    /**
+     * 根据SkuID获取商品Sku信息,供购物车远程调用接口
+     * @param skuId
+     * @return
+     */
+    @Operation(summary = "根据SkuID获取商品Sku信息,供购物车远程调用接口")
+    @GetMapping("/getBySkuId/{skuId}")
+    public ProductSku getProductSkuByID(@PathVariable Long skuId){
+        ProductSku productSku = productService.getProductSkuByID(skuId);
+        return productSku;
+    }
 }

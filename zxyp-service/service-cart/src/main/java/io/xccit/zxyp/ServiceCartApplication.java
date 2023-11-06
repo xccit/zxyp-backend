@@ -1,29 +1,24 @@
 package io.xccit.zxyp;
 
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 import io.xccit.zxyp.anno.EnableUserWebMvcConfiguration;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author CH_ywx
  * @date 2023/11/6
- * @description
+ * @description 购物车模块启动类
  */
-@EnableUserWebMvcConfiguration //开启前台拦截器
-@ComponentScan(basePackages = {"io.xccit.zxyp.**"})
-@EnableCaching
-@EnableEncryptableProperties //开启数据源密码加密
-@MapperScan(basePackages = {"io.xccit.zxyp.mapper"})
-@SpringBootApplication
-public class ServiceUserApplication {
-
+@EnableUserWebMvcConfiguration
+@EnableFeignClients(basePackages = {"io.xccit.zxyp.client.product"}) //开启远程调用
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+public class ServiceCartApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServiceUserApplication.class,args);
-        System.out.println("❤甄选优品前台用户服务启动成功\n" +
+        SpringApplication.run(ServiceCartApplication.class,args);
+        System.out.println("❤甄选优品前台购物车服务启动成功\n" +
                 "/*\n" +
                 " *                        _oo0oo_\n" +
                 " *                       o8888888o\n" +

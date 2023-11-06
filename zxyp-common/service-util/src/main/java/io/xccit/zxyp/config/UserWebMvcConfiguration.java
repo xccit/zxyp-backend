@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2023/11/06
  * @descirption 前台拦截器注册
  */
-@Configuration
 public class UserWebMvcConfiguration implements WebMvcConfigurer {
 
     @Autowired

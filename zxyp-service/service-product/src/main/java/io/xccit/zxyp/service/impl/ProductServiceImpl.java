@@ -3,6 +3,7 @@ package io.xccit.zxyp.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.v3.oas.annotations.Operation;
 import io.xccit.zxyp.mapper.ProductDetailsMapper;
 import io.xccit.zxyp.mapper.ProductMapper;
 import io.xccit.zxyp.mapper.ProductSkuMapper;
@@ -93,5 +94,17 @@ public class ProductServiceImpl implements IProductService {
         productItemVo.setSpecValueList(JSON.parseArray(product.getSpecValue()));
         productItemVo.setSkuSpecValueMap(skuSpecValueMap);
         return productItemVo;
+    }
+
+    /**
+     * 根据SkuID获取商品Sku信息,供购物车远程调用接口
+     *
+     * @param skuId
+     * @return
+     */
+    @Override
+    public ProductSku getProductSkuByID(Long skuId) {
+        ProductSku productSku = productSkuMapper.getOneByID(skuId);
+        return productSku;
     }
 }

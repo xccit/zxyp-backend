@@ -11,8 +11,10 @@ import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.h5.UserInfoVo;
 import io.xccit.zxyp.service.IUserService;
 import io.xccit.zxyp.util.JWTUtils;
+import io.xccit.zxyp.utils.AuthContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +124,8 @@ public class UserServiceImpl implements IUserService {
 
         String token = JWTUtils.createToken(userInfo.getId(), userInfo.getUsername());
         redisTemplate.opsForValue().set(RedisPrefixConstant.FRONT_USER_PREFIX + token, JSON.toJSONString(userInfo), 7, TimeUnit.DAYS);
+        //线程常量池中存储用户信息
+        AuthContextUtil.setUserInfo(userInfo);
         return token;
     }
 
@@ -132,15 +136,15 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public UserInfo getCurrentUser(String token) {
+    public UserInfoVo getCurrentUser(String token) {
         String userInfoJson = redisTemplate.opsForValue().get(RedisPrefixConstant.FRONT_USER_PREFIX + token);
         if (!StringUtils.hasText(userInfoJson)){
             throw new UserNoAuthException(ResultCodeEnum.LOGIN_AUTH);
         }
         UserInfo userInfo = JSON.parseObject(userInfoJson, UserInfo.class);
-        UserInfo result = new UserInfo();
+        UserInfoVo userInfoVo = new UserInfoVo();
         //TODO 属性拷贝
-        BeanUtils.copyProperties(userInfo,result);
-        return result;
+        BeanUtils.copyProperties(userInfo,userInfoVo);
+        return userInfoVo;
     }
 }

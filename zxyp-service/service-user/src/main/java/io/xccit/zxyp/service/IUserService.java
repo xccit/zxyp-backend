@@ -3,6 +3,7 @@ package io.xccit.zxyp.service;
 import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
+import io.xccit.zxyp.model.vo.h5.UserInfoVo;
 
 /**
  * @author CH_ywx
@@ -29,5 +30,5 @@ public interface IUserService {
      * @param token
      * @return
      */
-    UserInfo getCurrentUser(String token);
+    UserInfoVo getCurrentUser(String token);
 }

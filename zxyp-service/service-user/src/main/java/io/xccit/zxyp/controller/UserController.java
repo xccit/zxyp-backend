@@ -7,8 +7,11 @@ import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.h5.UserInfoVo;
 import io.xccit.zxyp.service.IUserService;
+import io.xccit.zxyp.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +60,11 @@ public class UserController {
      */
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("auth/getCurrentUserInfo")
-    public AjaxResult getCurrentUser(HttpServletRequest request){
-        String token = request.getHeader("token");
-        UserInfo userInfo = userService.getCurrentUser(token);
-        return AjaxResult.build(userInfo,ResultCodeEnum.SUCCESS);
+    public AjaxResult<UserInfoVo> getCurrentUser(HttpServletRequest request){
+        UserInfoVo userInfo = userService.getCurrentUser(request.getHeader("token"));
+//        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        UserInfoVo userInfoVo = new UserInfoVo();
+        BeanUtils.copyProperties(userInfo, userInfoVo);
+        return AjaxResult.build(userInfoVo,ResultCodeEnum.SUCCESS);
     }
 }
