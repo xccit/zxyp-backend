@@ -85,7 +85,7 @@ public class CartController {
     }
 
     /**
-     * 添加购物车
+     * 添加购物车,添加之前需要远程调用获取Sku信息
      * @param skuId 商品sku的id值
      * @param skuNum 商品数量
      * @return
@@ -103,7 +103,7 @@ public class CartController {
      * @return
      */
     @Operation(summary="选中的购物车")
-    @GetMapping(value = "/auth/getAllCkecked")
+    @GetMapping(value = "/auth/getAllChecked")
     public List<CartInfo> getAllChecked() {
         List<CartInfo> list = cartService.getAllChecked();
         return list;

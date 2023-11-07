@@ -30,5 +30,14 @@
             username = #{username}
         </where>
     </select>
+    <!--用户浏览历史分页列表-->
+    <select id="listUserBrowseHistory" resultType="io.xccit.zxyp.model.vo.h5.UserBrowseHistoryVo">
+        SELECT id,user_id,sku_id,create_time,update_time
+        FROM user_browse_history
+        <where>
+            is_deleted = 0
+            and user_id = #{userId}
+        </where>
+    </select>
 
 </mapper>

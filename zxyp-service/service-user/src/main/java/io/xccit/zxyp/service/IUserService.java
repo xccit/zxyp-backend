@@ -1,8 +1,11 @@
 package io.xccit.zxyp.service;
 
+import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
+import io.xccit.zxyp.model.vo.h5.UserBrowseHistoryVo;
+import io.xccit.zxyp.model.vo.h5.UserCollectVo;
 import io.xccit.zxyp.model.vo.h5.UserInfoVo;
 
 /**
@@ -31,4 +34,34 @@ public interface IUserService {
      * @return
      */
     UserInfoVo getCurrentUser(String token);
+
+    /**
+     * 用户是否收藏商品接口
+     * @param skuId
+     * @return
+     */
+    boolean isCollect(Long skuId);
+
+    /**
+     * 用户收藏信息分页列表
+     * @param page
+     * @param limit
+     * @return
+     */
+    PageInfo<UserCollectVo> listCollectPage(Integer page, Integer limit);
+
+    /**
+     * 用户浏览历史分页列表
+     * @param page
+     * @param limit
+     * @return
+     */
+    PageInfo<UserBrowseHistoryVo> listUserBrowseHistoryPage(Integer page, Integer limit);
+
+    /**
+     * 收藏商品
+     * @param skuId
+     * @return
+     */
+    boolean collectSku(Long skuId);
 }

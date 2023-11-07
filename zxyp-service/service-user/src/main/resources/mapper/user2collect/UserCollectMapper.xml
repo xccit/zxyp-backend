@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xccit.zxyp.mapper.UserCollectMapper">
+    <resultMap id="userCollectVO" type="io.xccit.zxyp.model.vo.h5.UserCollectVo" autoMapping="true"></resultMap>
+    <sql id="columns">
+        `id`,`user_id`,`sku_id`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+    <!--收藏商品-->
+    <insert id="collectSku">
+        INSERT INTO user_collect
+        (user_id,sku_id)
+        VALUES
+        (#{userId},#{skuId})
+    </insert>
+    <!--用户是否收藏商品-->
+    <select id="isCollect" resultType="integer">
+        SELECT count(sku_id)
+        FROM user_collect
+        <where>
+            and sku_id = #{skuId}
+            and user_id = #{userId}
+        </where>
+    </select>
+    <!--用户收藏信息分页列表-->
+    <select id="listUserCollect" resultMap="userCollectVO">
+        SELECT <include refid="columns"/>
+        FROM user_collect
+        <where>
+            user_id = #{userId}
+            and is_deleted = 0
+        </where>
+    </select>
+</mapper>

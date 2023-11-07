@@ -1,16 +1,21 @@
 package io.xccit.zxyp.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.constants.RedisPrefixConstant;
 import io.xccit.zxyp.exception.PasswordWrongException;
 import io.xccit.zxyp.exception.SmsException;
 import io.xccit.zxyp.exception.UserNoAuthException;
 import io.xccit.zxyp.exception.UserNotExistsException;
+import io.xccit.zxyp.mapper.UserCollectMapper;
 import io.xccit.zxyp.mapper.UserInfoMapper;
 import io.xccit.zxyp.model.dto.h5.UserLoginDto;
 import io.xccit.zxyp.model.dto.h5.UserRegisterDto;
 import io.xccit.zxyp.model.entity.user.UserInfo;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
+import io.xccit.zxyp.model.vo.h5.UserBrowseHistoryVo;
+import io.xccit.zxyp.model.vo.h5.UserCollectVo;
 import io.xccit.zxyp.model.vo.h5.UserInfoVo;
 import io.xccit.zxyp.service.IUserService;
 import io.xccit.zxyp.util.JWTUtils;
@@ -24,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,6 +43,8 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+    @Autowired
+    private UserCollectMapper userCollectMapper;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -146,5 +154,68 @@ public class UserServiceImpl implements IUserService {
         //TODO 属性拷贝
         BeanUtils.copyProperties(userInfo,userInfoVo);
         return userInfoVo;
+    }
+
+    /**
+     * 用户是否收藏商品
+     *
+     * @param skuId
+     * @return
+     */
+    @Override
+    public boolean isCollect(Long skuId) {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        int collect = userCollectMapper.isCollect(userId,skuId);
+        if (collect > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 用户收藏信息分页列表
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Override
+    public PageInfo<UserCollectVo> listCollectPage(Integer page, Integer limit) {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        PageHelper.startPage(page,limit);
+        List<UserCollectVo> userCollectVoList = userCollectMapper.listUserCollect(userId);
+        PageInfo<UserCollectVo> userCollectVoPageInfo = new PageInfo<>(userCollectVoList);
+        return userCollectVoPageInfo;
+    }
+
+    /**
+     * 用户浏览历史分页列表
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Override
+    public PageInfo<UserBrowseHistoryVo> listUserBrowseHistoryPage(Integer page, Integer limit) {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        PageHelper.startPage(page,limit);
+        List<UserBrowseHistoryVo> list = userInfoMapper.listUserBrowseHistory(userId);
+        return new PageInfo<UserBrowseHistoryVo>(list);
+    }
+
+    /**
+     * 收藏商品
+     *
+     * @param skuId
+     * @return
+     */
+    @Override
+    public boolean collectSku(Long skuId) {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        int count = userCollectMapper.collectSku(userId,skuId);
+        if (count > 0){
+            return true;
+        }
+        return false;
     }
 }

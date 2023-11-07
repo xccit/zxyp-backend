@@ -14,6 +14,7 @@
     <modules>
         <module>product-client</module>
         <module>user-client</module>
+        <module>cart-client</module>
     </modules>
 
     <properties>

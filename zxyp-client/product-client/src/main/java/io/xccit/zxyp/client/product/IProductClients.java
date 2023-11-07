@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface IProductClients {
 
     /**
-     * 根据skuID获取Sku信息
+     * 加入购物车前需要先获取Sku信息,根据skuID获取Sku信息
      * @param skuId
      * @return
      */
