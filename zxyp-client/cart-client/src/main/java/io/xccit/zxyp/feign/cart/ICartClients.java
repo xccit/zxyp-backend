@@ -1,4 +1,4 @@
-package io.xccit.zxyp.feign;
+package io.xccit.zxyp.feign.cart;
 
 import io.xccit.zxyp.model.entity.h5.CartInfo;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
@@ -14,9 +14,18 @@ import java.util.List;
  */
 @FeignClient("service-cart")
 public interface ICartClients {
-    @GetMapping("/api/order/cart/auth/deleteChecked")
-    public AjaxResult deleteChecked();
 
+    /**
+     * 购物车清除选中
+     * @return
+     */
+    @GetMapping("/api/order/cart/auth/deleteChecked")
+    AjaxResult deleteChecked();
+
+    /**
+     * 购物车所有选中
+     * @return
+     */
     @GetMapping( "/api/order/cart/auth/getAllChecked")
-    public List<CartInfo> getAllChecked();
+    List<CartInfo> getAllChecked();
 }

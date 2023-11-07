@@ -39,3 +39,8 @@ spring:
           uri: lb://service-cart
           predicates:
             - Path=/api/order/cart/**
+        # 订单
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/api/order/orderInfo/**

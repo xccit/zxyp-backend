@@ -203,14 +203,13 @@ public class CartServiceImpl implements ICartService {
         //获取userid，构建key
         Long userId = AuthContextUtil.getUserInfo().getId();
         String cartKey = this.getCartKey(userId);
-
         //根据key获取购物车所有商品
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
 
         if (!CollectionUtils.isEmpty(objectList)) {
             List<CartInfo> cartInfoList = objectList.stream().map(object ->
                             JSON.parseObject(object.toString(), CartInfo.class))
-                    .filter(cartInfo -> cartInfo.getIsChecked() == 1)//选中
+                    .filter(cartInfo -> cartInfo.getIsChecked() == 1)
                     .collect(Collectors.toList());
             return cartInfoList;
         }
