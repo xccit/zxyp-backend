@@ -3,6 +3,7 @@ package io.xccit.zxyp.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.xccit.zxyp.model.dto.h5.OrderInfoDto;
+import io.xccit.zxyp.model.entity.order.OrderInfo;
 import io.xccit.zxyp.model.vo.common.AjaxResult;
 import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.model.vo.h5.TradeVo;
@@ -43,5 +44,17 @@ public class OrderInfoController {
     public AjaxResult submitOrder(@RequestBody OrderInfoDto orderInfoDto){
         Long orderId = orderInfoService.submitOrder(orderInfoDto);
         return AjaxResult.build(orderId,ResultCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 根据订单ID获取订单信息
+     * @param orderId 订单ID
+     * @return
+     */
+    @Operation(summary = "根据订单ID获取订单信息")
+    @GetMapping("/auth/{orderId}")
+    public AjaxResult getOrderInfo(@PathVariable Long orderId){
+        OrderInfo orderInfo = orderInfoService.getOrderInfo(orderId);
+        return AjaxResult.build(orderInfo,ResultCodeEnum.SUCCESS);
     }
 }

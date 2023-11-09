@@ -25,11 +25,12 @@
     </select>
     <!--用户收藏信息分页列表-->
     <select id="listUserCollect" resultMap="userCollectVO">
-        SELECT <include refid="columns"/>
-        FROM user_collect
+        SELECT uc.*,ps.*
+        FROM user_collect AS uc
+        INNER JOIN product_sku AS ps ON ps.id = uc.sku_id
         <where>
-            user_id = #{userId}
-            and is_deleted = 0
+            uc.user_id = #{userId}
+            and uc.is_deleted = 0
         </where>
     </select>
 </mapper>

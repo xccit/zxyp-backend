@@ -16,4 +16,11 @@ public interface OrderInfoMapper {
      * @param orderInfo
      */
     void save(OrderInfo orderInfo);
+
+    /**
+     * 根据订单ID获取订单信息
+     * @param orderId
+     * @return
+     */
+    OrderInfo getOrderInfoByID(Long orderId);
 }

@@ -157,4 +157,15 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         //返回订单ID
         return orderInfo.getId();
     }
+
+    /**
+     * 根据订单ID获取订单信息
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public OrderInfo getOrderInfo(Long orderId) {
+        return orderInfoMapper.getOrderInfoByID(orderId);
+    }
 }
