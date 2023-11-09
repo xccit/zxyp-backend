@@ -91,7 +91,7 @@ public class UserServiceImpl implements IUserService {
         userInfo.setPhone(username);
         userInfo.setStatus(1);
         userInfo.setSex(0);
-        userInfo.setAvatar("http://127.0.0.1:9000/zxyp-bucket/20231028/01352b25cead438d9b99f54b378fe9a27979801c3220c2364d0f64f8ec15588f.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=KSEW0RUKF2224K6YOLQ9%2F20231107%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231107T145431Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJLU0VXMFJVS0YyMjI0SzZZT0xROSIsImV4cCI6MTY5OTQxMjA0NywicGFyZW50IjoibWluaW9hZG1pbiJ9.U733bVwVWhYdDsrvEsAyg47n701QSbjlbq8wrySHzFnZvwHyECzK_7A6GjbAJ5rVwCGN0_sNEl_a7ncqans_RQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=fbe75b19cc5e7d613ab636e06dc96f121527ac1ecac24239f2fa0e591267224b");
+        userInfo.setAvatar("https://yxstore-xccit.oss-cn-beijing.aliyuncs.com/2023/06/15/4efb1045dab64d63bcc3d704a0f72309IMG_0619.JPG");
         userInfoMapper.save(userInfo);
         //TODO 删除Redis中的数据
         redisTemplate.delete(username);

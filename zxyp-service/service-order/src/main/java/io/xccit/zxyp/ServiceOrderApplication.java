@@ -1,5 +1,6 @@
 package io.xccit.zxyp;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.xccit.zxyp.anno.EnableUserTokenFeignInterceptor;
 import io.xccit.zxyp.anno.EnableUserWebMvcConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"io.xccit.zxyp.client.product","io.xccit.zxyp.client.cart","io.xccit.zxyp.client.user"})
 @EnableUserWebMvcConfiguration
 @SpringBootApplication
+@EnableEncryptableProperties //数据源加密
 public class ServiceOrderApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceOrderApplication.class,args);

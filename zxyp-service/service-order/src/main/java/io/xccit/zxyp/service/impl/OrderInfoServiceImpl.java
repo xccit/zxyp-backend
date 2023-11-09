@@ -22,6 +22,7 @@ import io.xccit.zxyp.utils.AuthContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -89,6 +90,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
      * @param orderInfoDto
      * @return
      */
+    @Transactional
     @Override
     public Long submitOrder(OrderInfoDto orderInfoDto) {
         //获取当前登录的用户信息

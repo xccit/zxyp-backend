@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public AjaxResult error(RuntimeException e) {
+    public AjaxResult error(Exception e) {
         return AjaxResult.build(null, 500, e.getCause().getMessage());
     }
 
