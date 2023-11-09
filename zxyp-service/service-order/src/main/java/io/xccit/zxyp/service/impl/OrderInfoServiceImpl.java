@@ -138,7 +138,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         orderInfo.setTotalAmount(totalAmount);
         orderInfo.setCouponAmount(new BigDecimal(0));
         orderInfo.setOriginalTotalAmount(totalAmount);
-        orderInfo.setFreightFee(orderInfoDto.getFeightFee());
+        orderInfo.setFreightFee(orderInfoDto.getFreightFee());
         orderInfo.setPayType(2);
         orderInfo.setOrderStatus(0);
         orderInfoMapper.save(orderInfo);
@@ -207,7 +207,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         PageHelper.startPage(page, limit);
         Long userId = AuthContextUtil.getUserInfo().getId();
         List<OrderInfo> orderInfoList = orderInfoMapper.listUserOrderPage(userId, orderStatus);
-
+        //封装订单项到订单信息
         orderInfoList.forEach(orderInfo -> {
             List<OrderItem> orderItem = orderItemMapper.listItemByOrderID(orderInfo.getId());
             orderInfo.setOrderItemList(orderItem);
