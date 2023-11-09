@@ -1,5 +1,6 @@
 package io.xccit.zxyp.service;
 
+import io.xccit.zxyp.model.dto.h5.OrderInfoDto;
 import io.xccit.zxyp.model.vo.h5.TradeVo;
 
 /**
@@ -14,4 +15,11 @@ public interface IOrderInfoService {
      * @return
      */
     TradeVo trade();
+
+    /**
+     * 提交订单
+     * @param orderInfoDto
+     * @return
+     */
+    Long submitOrder(OrderInfoDto orderInfoDto);
 }

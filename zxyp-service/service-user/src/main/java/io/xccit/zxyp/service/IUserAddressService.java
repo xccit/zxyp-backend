@@ -15,7 +15,7 @@ public interface IUserAddressService {
      * 获取用户地址列表
      * @return
      */
-    List<UserAddress> findUserAddressList();
+    List<UserAddress> listUserAddress();
 
     /**
      * 用户地址修改
@@ -34,4 +34,11 @@ public interface IUserAddressService {
      * @param id
      */
     void removeAddress(Long id);
+
+    /**
+     * 根据ID获取地址信息
+     * @param id
+     * @return
+     */
+    UserAddress getAddressByID(Long id);
 }

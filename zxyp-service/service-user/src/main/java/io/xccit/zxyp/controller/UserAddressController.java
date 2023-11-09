@@ -25,13 +25,24 @@ public class UserAddressController {
     private IUserAddressService userAddressService;
 
     /**
+     *
+     * @return
+     */
+    @Operation(summary = "根据ID获取地址信息")
+    @GetMapping("/getUserAddress/{id}")
+    public UserAddress getAddressById(@PathVariable Long id){
+        UserAddress userAddress = userAddressService.getAddressByID(id);
+        return userAddress;
+    }
+
+    /**
      * 获取用户地址列表
      * @return
      */
     @Operation(summary = "获取用户地址列表")
     @GetMapping("auth/findUserAddressList")
     public AjaxResult<List<UserAddress>> findUserAddressList() {
-        List<UserAddress> list = userAddressService.findUserAddressList();
+        List<UserAddress> list = userAddressService.listUserAddress();
         return AjaxResult.build(list , ResultCodeEnum.SUCCESS) ;
     }
 

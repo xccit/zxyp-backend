@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @description 订单启动类
  */
 @EnableUserTokenFeignInterceptor //开启远程调用处理器
-@EnableFeignClients(basePackages = {"io.xccit.zxyp.feign.cart"})
+@EnableFeignClients(basePackages = {"io.xccit.zxyp.client.product","io.xccit.zxyp.client.cart","io.xccit.zxyp.client.user"})
 @EnableUserWebMvcConfiguration
 @SpringBootApplication
 public class ServiceOrderApplication {

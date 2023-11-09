@@ -1,14 +1,28 @@
 package io.xccit.zxyp.service.impl;
 
-import io.xccit.zxyp.feign.cart.ICartClients;
+import io.xccit.zxyp.client.user.IUserClients;
+import io.xccit.zxyp.client.product.IProductClients;
+import io.xccit.zxyp.exception.OrderException;
+import io.xccit.zxyp.client.cart.ICartClients;
 import io.xccit.zxyp.mapper.OrderInfoMapper;
+import io.xccit.zxyp.mapper.OrderItemMapper;
+import io.xccit.zxyp.mapper.OrderLogMapper;
+import io.xccit.zxyp.model.dto.h5.OrderInfoDto;
 import io.xccit.zxyp.model.entity.h5.CartInfo;
+import io.xccit.zxyp.model.entity.order.OrderInfo;
 import io.xccit.zxyp.model.entity.order.OrderItem;
+import io.xccit.zxyp.model.entity.order.OrderLog;
+import io.xccit.zxyp.model.entity.product.ProductSku;
+import io.xccit.zxyp.model.entity.user.UserAddress;
+import io.xccit.zxyp.model.entity.user.UserInfo;
+import io.xccit.zxyp.model.vo.common.ResultCodeEnum;
 import io.xccit.zxyp.model.vo.h5.TradeVo;
 import io.xccit.zxyp.service.IOrderInfoService;
+import io.xccit.zxyp.utils.AuthContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +40,15 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
     @Autowired
     private ICartClients cartClients;
     @Autowired
+    private IProductClients productClients;
+    @Autowired
     private OrderInfoMapper orderInfoMapper;
+    @Autowired
+    private OrderItemMapper orderItemMapper;
+    @Autowired
+    private OrderLogMapper orderLogMapper;
+    @Autowired
+    private IUserClients userClients;
 
     /**
      * 确认下单
@@ -59,5 +81,78 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         tradeVo.setOrderItemList(orderItemList);
         tradeVo.setTotalAmount(totalAmount);
         return tradeVo;
+    }
+
+    /**
+     * 提交订单
+     *
+     * @param orderInfoDto
+     * @return
+     */
+    @Override
+    public Long submitOrder(OrderInfoDto orderInfoDto) {
+        //获取当前登录的用户信息
+        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        //获取订单项列表,校验订单项列表是否为空,是则抛异常
+        List<OrderItem> orderItemList = orderInfoDto.getOrderItemList();
+        if (CollectionUtils.isEmpty(orderItemList)){
+            throw new OrderException(ResultCodeEnum.DATA_ERROR);
+        }
+        //遍历订单项列表,判断订单项库存是否充足
+        for (OrderItem orderItem : orderItemList) {
+            //远程调用获取Sku信息,判断stock_num(库存)
+            ProductSku productSku = productClients.getProductSkuByID(orderItem.getSkuId());
+            //未查询到Sku信息,抛异常
+            if (productSku == null){
+                throw new OrderException(ResultCodeEnum.DATA_ERROR);
+            }
+            //库存不足,抛异常
+            if (orderItem.getSkuNum().intValue() > productSku.getStockNum().intValue()){
+                throw new OrderException(ResultCodeEnum.STOCK_LESS);
+            }
+        }
+        //封装订单信息,添加到order_info
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setUserId(userInfo.getId());
+        orderInfo.setNickName(userInfo.getNickName());
+        // 使用当前系统时间戳作为订单编号
+        orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));
+        //TODO 封装收货地址信息(远程调用)
+        UserAddress userAddress = userClients.getAddressById(orderInfoDto.getUserAddressId());
+        orderInfo.setReceiverName(userAddress.getName());
+        orderInfo.setReceiverPhone(userAddress.getPhone());
+        orderInfo.setReceiverTagName(userAddress.getTagName());
+        orderInfo.setReceiverProvince(userAddress.getProvinceCode());
+        orderInfo.setReceiverCity(userAddress.getCityCode());
+        orderInfo.setReceiverDistrict(userAddress.getDistrictCode());
+        orderInfo.setReceiverAddress(userAddress.getFullAddress());
+        //订单金额
+        BigDecimal totalAmount = new BigDecimal(0);
+        for (OrderItem orderItem : orderItemList) {
+            totalAmount = totalAmount.add(orderItem.getSkuPrice().multiply(new BigDecimal(orderItem.getSkuNum())));
+        }
+        orderInfo.setTotalAmount(totalAmount);
+        orderInfo.setCouponAmount(new BigDecimal(0));
+        orderInfo.setOriginalTotalAmount(totalAmount);
+        orderInfo.setFreightFee(orderInfoDto.getFeightFee());
+        orderInfo.setPayType(2);
+        orderInfo.setOrderStatus(0);
+        orderInfoMapper.save(orderInfo);
+        //封装订单项,添加到order_item
+        for (OrderItem orderItem : orderItemList) {
+            orderItem.setOrderId(orderInfo.getId());
+            orderItemMapper.save(orderItem);
+        }
+        //封装订单日志,添加到order_log
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderInfo.getId());
+        orderLog.setProcessStatus(0);
+        orderLog.setOperateUser(userInfo.getNickName());
+        orderLog.setNote("订单提交");
+        orderLogMapper.save(orderLog);
+        //TODO 把订单项中的商品从购物车删除(Redis,远程调用)
+        cartClients.deleteChecked();
+        //返回订单ID
+        return orderInfo.getId();
     }
 }

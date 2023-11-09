@@ -37,4 +37,11 @@ public interface UserAddressMapper {
      * @param id
      */
     void removeAddressByID(Long id);
+
+    /**
+     * 根据ID获取地址信息
+     * @param id
+     * @return
+     */
+    UserAddress getAddressByID(Long id);
 }

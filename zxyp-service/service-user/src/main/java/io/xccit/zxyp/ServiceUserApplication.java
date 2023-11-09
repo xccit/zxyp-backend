@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023/11/6
  * @description
  */
+
 @EnableUserWebMvcConfiguration //开启前台拦截器
 @ComponentScan(basePackages = {"io.xccit.zxyp.**"})
 @EnableCaching

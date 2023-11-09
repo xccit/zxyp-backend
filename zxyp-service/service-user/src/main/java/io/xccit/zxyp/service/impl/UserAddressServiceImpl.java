@@ -32,7 +32,7 @@ public class UserAddressServiceImpl implements IUserAddressService {
      * @return
      */
     @Override
-    public List<UserAddress> findUserAddressList() {
+    public List<UserAddress> listUserAddress() {
         Long userId = AuthContextUtil.getUserInfo().getId();
         return userAddressMapper.listAddressByUserID(userId);
     }
@@ -79,6 +79,16 @@ public class UserAddressServiceImpl implements IUserAddressService {
         userAddressMapper.removeAddressByID(id);
     }
 
+    /**
+     * 根据ID获取地址信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public UserAddress getAddressByID(Long id) {
+        return userAddressMapper.getAddressByID(id);
+    }
 
     /**
      * 拼接完整地址

@@ -1,6 +1,7 @@
 package io.xccit.zxyp;
 
 
+import io.xccit.zxyp.anno.EnableUserTokenFeignInterceptor;
 import io.xccit.zxyp.anno.EnableUserWebMvcConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +13,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2023/11/6
  * @description 购物车模块启动类
  */
+@EnableUserTokenFeignInterceptor
 @EnableUserWebMvcConfiguration
-@EnableFeignClients(basePackages = {"io.xccit.zxyp.client.product"}) //开启远程调用
+@EnableFeignClients(basePackages = {"io.xccit.zxyp.client.product","io.xccit.zxyp.client.cart"}) //开启远程调用
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ServiceCartApplication {
     public static void main(String[] args) {

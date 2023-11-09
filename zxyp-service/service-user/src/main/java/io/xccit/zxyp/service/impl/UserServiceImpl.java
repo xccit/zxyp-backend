@@ -91,7 +91,7 @@ public class UserServiceImpl implements IUserService {
         userInfo.setPhone(username);
         userInfo.setStatus(1);
         userInfo.setSex(0);
-        userInfo.setAvatar("http://127.0.0.1:9000/zxyp-bucket/20231028/6fa3d25b3d084b738c1ec1707e356b5577ef70302ce3538cda31547b7f5cd8d7.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=UM9Z2OXLCIKD7RFBK7WW%2F20231106%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231106T053332Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJVTTlaMk9YTENJS0Q3UkZCSzdXVyIsImV4cCI6MTY5OTI5MTkyOCwicGFyZW50IjoibWluaW9hZG1pbiJ9.faoTQQZy-f9Cyi1U2tZqkH088trWccul0NS7Y6IcGeAvho8ScMeYMxzbNvhfe6MriXZJetysyMpCE3YEekEOYg&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=1734021b45cf3fb6a5101b9b72603507835c3216810c11fb5fecce479e76f841");
+        userInfo.setAvatar("http://127.0.0.1:9000/zxyp-bucket/20231028/01352b25cead438d9b99f54b378fe9a27979801c3220c2364d0f64f8ec15588f.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=KSEW0RUKF2224K6YOLQ9%2F20231107%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231107T145431Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJLU0VXMFJVS0YyMjI0SzZZT0xROSIsImV4cCI6MTY5OTQxMjA0NywicGFyZW50IjoibWluaW9hZG1pbiJ9.U733bVwVWhYdDsrvEsAyg47n701QSbjlbq8wrySHzFnZvwHyECzK_7A6GjbAJ5rVwCGN0_sNEl_a7ncqans_RQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=fbe75b19cc5e7d613ab636e06dc96f121527ac1ecac24239f2fa0e591267224b");
         userInfoMapper.save(userInfo);
         //TODO 删除Redis中的数据
         redisTemplate.delete(username);

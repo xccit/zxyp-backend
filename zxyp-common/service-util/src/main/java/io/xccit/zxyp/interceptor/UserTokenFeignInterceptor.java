@@ -19,7 +19,7 @@ public class UserTokenFeignInterceptor implements RequestInterceptor {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         String token = request.getHeader("token");
-        requestTemplate.header("token" , token) ;
+        requestTemplate.header("token", token);
     }
 
 }

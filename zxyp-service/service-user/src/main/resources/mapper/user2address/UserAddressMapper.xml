@@ -55,4 +55,12 @@
             user_id = #{userId}
         </where>
     </select>
+    <!--根据ID获取地址信息-->
+    <select id="getAddressByID" resultMap="userAddressVO">
+        SELECT <include refid="columns" />
+        FROM user_address
+        <where>
+            id = #{id}
+        </where>
+    </select>
 </mapper>

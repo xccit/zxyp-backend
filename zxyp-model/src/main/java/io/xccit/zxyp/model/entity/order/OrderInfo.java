@@ -36,7 +36,7 @@ public class OrderInfo extends BaseEntity {
 	private BigDecimal originalTotalAmount;
 
 	@Schema(description = "运费")
-	private BigDecimal feightFee;
+	private BigDecimal freightFee;
 
 	@Schema(description = "支付方式【1->微信】")
 	private Integer payType;
