@@ -30,4 +30,10 @@ public interface IOrderInfoService {
      * @return
      */
     OrderInfo getOrderInfo(Long orderId);
+
+    /**
+     * 立即购买
+     * @return
+     */
+    TradeVo buy(Long skuId);
 }

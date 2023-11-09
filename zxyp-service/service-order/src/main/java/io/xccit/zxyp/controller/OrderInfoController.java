@@ -57,4 +57,16 @@ public class OrderInfoController {
         OrderInfo orderInfo = orderInfoService.getOrderInfo(orderId);
         return AjaxResult.build(orderInfo,ResultCodeEnum.SUCCESS);
     }
+
+    /**
+     * 立即购买
+     * @param skuId
+     * @return
+     */
+    @Operation(summary = "立即购买")
+    @GetMapping("/auth/buy/{skuId}")
+    public AjaxResult buy(@PathVariable Long skuId){
+        TradeVo tradeVo = orderInfoService.buy(skuId);
+        return AjaxResult.build(tradeVo,ResultCodeEnum.SUCCESS);
+    }
 }
