@@ -3,6 +3,8 @@ package io.xccit.zxyp.mapper;
 import io.xccit.zxyp.model.entity.order.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author CH_ywx
  * @date 2023/11/7
@@ -23,4 +25,12 @@ public interface OrderInfoMapper {
      * @return
      */
     OrderInfo getOrderInfoByID(Long orderId);
+
+    /**
+     * 用户订单分页列表
+     * @param userId
+     * @param orderStatus
+     * @return
+     */
+    List<OrderInfo> listUserOrderPage(Long userId, Integer orderStatus);
 }

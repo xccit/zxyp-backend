@@ -71,4 +71,19 @@
             id = #{orderId}
         </where>
     </select>
+    <!--用户订单分页列表-->
+    <select id="listUserOrderPage" resultMap="orderInfoVO">
+        SELECT <include refid="columns" />
+        FROM order_info
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            and is_deleted = 0
+        </where>
+        ORDER BY id desc
+    </select>
 </mapper>

@@ -1,5 +1,7 @@
 package io.xccit.zxyp.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.xccit.zxyp.client.user.IUserClients;
 import io.xccit.zxyp.client.product.IProductClients;
 import io.xccit.zxyp.exception.OrderException;
@@ -190,5 +192,27 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         tradeVo.setOrderItemList(orderItemList);
         tradeVo.setTotalAmount(productSku.getSalePrice());
         return tradeVo;
+    }
+
+    /**
+     * 用户订单分页列表
+     *
+     * @param page
+     * @param limit
+     * @param orderStatus
+     * @return
+     */
+    @Override
+    public PageInfo<OrderInfo> listUserOrderPage(Integer page, Integer limit, Integer orderStatus) {
+        PageHelper.startPage(page, limit);
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        List<OrderInfo> orderInfoList = orderInfoMapper.listUserOrderPage(userId, orderStatus);
+
+        orderInfoList.forEach(orderInfo -> {
+            List<OrderItem> orderItem = orderItemMapper.listItemByOrderID(orderInfo.getId());
+            orderInfo.setOrderItemList(orderItem);
+        });
+
+        return new PageInfo<>(orderInfoList);
     }
 }
